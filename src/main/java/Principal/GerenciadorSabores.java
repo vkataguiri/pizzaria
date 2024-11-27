@@ -18,7 +18,7 @@ public class GerenciadorSabores {
         sabores.add(sabor);
     }
 
-    public static void editarSabor(Sabor sabor, String novoNome, String novoTipo) {
+    public static void editarSabor(Sabor sabor, String novoNome, String novoTipo, String nomeAntigo) {
         Sabor novoSabor;
         switch (novoTipo) {
             case "Simples" -> {
@@ -35,7 +35,12 @@ public class GerenciadorSabores {
                 throw new RuntimeException("Index invalido na edicao de sabores.");
             }
         }
-
+        
+        for (int i = 0; i < sabores.size(); i++) {
+            if (sabores.get(i).getNome().equalsIgnoreCase(nomeAntigo)) {
+                sabores.set(i, sabor);
+            }
+        }
         sabores.remove(sabor);
         sabores.add(novoSabor);
     }

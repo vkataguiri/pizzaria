@@ -500,7 +500,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             // Editar no gerenciador
             String nomeTabela = modelo.getValueAt(saborSelecionado, 0).toString();
             Sabor sabor = GerenciadorSabores.encontrarPorNome(nomeTabela);
-            GerenciadorSabores.editarSabor(sabor, nome, tipo);
+            GerenciadorSabores.editarSabor(sabor, nome, tipo, nomeTabela);
 
             // Editar na tabela
             modelo.setValueAt(nome, saborSelecionado, 0);
