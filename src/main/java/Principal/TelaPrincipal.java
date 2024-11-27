@@ -753,10 +753,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             return;
         }
         
-        int novoPreco;
+        double novoPreco;
         try {
-            novoPreco = Integer.parseInt(JOptionPane.showInputDialog("Escolha o novo preço para o tipo " + tipoSelecionado + "."));
-        } catch (InputMismatchException e) {
+            novoPreco = Double.parseDouble(JOptionPane.showInputDialog("Escolha o novo preço para o tipo " + tipoSelecionado + "."));
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "O novo preço deve ser um número.", "Erro", 0);
             return;
         }
