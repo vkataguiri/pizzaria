@@ -13,14 +13,6 @@ public class SaborEspecial extends Sabor {
 
     public SaborEspecial(String nome) {
         super(nome);
-        validarTipo(); // Valida o tipo
-    }
-
-    @Override
-    public void validarTipo() {
-        if (!"Especial".equalsIgnoreCase(this.getNome())) {
-            throw new IllegalArgumentException("O tipo do sabor deve ser Especial!");
-        }
     }
 
     @Override
@@ -34,10 +26,5 @@ public class SaborEspecial extends Sabor {
             throw new IllegalArgumentException("Preço deve ser positivo.");
         }
         precoEspecial = preco;
-    }
-
-    // Método para obter o preço
-    public static double getPrecoEspecial() {
-        return precoEspecial;
     }
 }
