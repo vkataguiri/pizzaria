@@ -21,7 +21,4 @@ public abstract class Sabor {
 
     // Método abstrato para obter o preço de cada sabor
     public abstract double getPreco();
-    
-    // Método abstrato para validar o tipo de sabor
-    public abstract void validarTipo();
 }

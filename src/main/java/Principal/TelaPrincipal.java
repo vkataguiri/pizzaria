@@ -286,10 +286,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         tabelaSabores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Nome", "Tipo"
@@ -309,8 +306,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cadastrarSaborButton, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                     .addComponent(tipoSabor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -318,40 +315,42 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(nomeSabor)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(editarSaborButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(excluirSaborButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(pesquisarSabor, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pesquisarSaborButton, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nomeSabor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pesquisarSabor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pesquisarSaborButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nomeSabor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tipoSabor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(cadastrarSaborButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(editarSaborButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(excluirSaborButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(editarSaborButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(excluirSaborButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cadastrar Sabor", jPanel3);
@@ -369,6 +368,151 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void pesquisarSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarSaborButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pesquisarSaborButtonActionPerformed
+
+    private void pesquisarSaborActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarSaborActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pesquisarSaborActionPerformed
+
+    private void excluirSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirSaborButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_excluirSaborButtonActionPerformed
+
+    private void editarSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarSaborButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editarSaborButtonActionPerformed
+
+    private void cadastrarSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarSaborButtonActionPerformed
+        String nome = nomeSabor.getText();
+
+        // Nome vazio
+        if (nome.equals("")) {
+            JOptionPane.showMessageDialog(this, "O nome não pode estar vazio.", "Erro", 0);
+        }
+
+        Sabor novoSabor;
+        // instanciar novo objeto do sabor dependendo do tipo
+        try {
+            switch (tipoSabor.getSelectedIndex()) {
+                case 0 -> {
+                    // sabor simples
+                    novoSabor = new SaborSimples(nome);
+                }
+                case 1 -> {
+                    novoSabor = new SaborEspecial(nome);
+                }
+                case 2 -> {
+                    novoSabor = new SaborPremium(nome);
+                }
+                default -> {
+                    throw new RuntimeException("Index invalido no combo do tipo de sabor.");
+                }
+            }
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e, "Erro", 0);
+            return;
+        }
+
+        // inserir dados na tabela
+        DefaultTableModel modelo = (DefaultTableModel) tabelaSabores.getModel();
+        modelo.addRow(new Object[]{novoSabor.getNome(), novoSabor.getNome()});
+
+        // mostrar mensagem de cliente cadastrado com sucesso
+        JOptionPane.showMessageDialog(this, "Sabor cadastrado com sucesso.", "Sucesso", 1);
+    }//GEN-LAST:event_cadastrarSaborButtonActionPerformed
+
+    private void nomeSaborActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeSaborActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeSaborActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        // Obtém a linha selecionada na tabela
+        int selectedRow = jTable1.getSelectedRow();
+
+        // Verifica se uma linha foi selecionada
+        if (selectedRow != -1) {
+            // Confirmação de exclusão
+            int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir este cliente?",
+                    "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Remove o cliente da tabela
+                DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+                modelo.removeRow(selectedRow); // Remove a linha selecionada
+
+                // Se você tiver uma lista de clientes, também remova da lista
+                // Exemplo (supondo que 'clientes' seja sua lista de clientes):
+                // clientes.remove(selectedRow);
+                JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um cliente para excluir.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        // Obtém a linha selecionada na tabela
+        int selectedRow = jTable1.getSelectedRow();
+
+        // Verifica se uma linha foi selecionada
+        if (selectedRow != -1) {
+            // Carrega os dados do cliente na linha selecionada
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+            // Preenche os campos de texto com os dados do cliente selecionado
+            jTextField1.setText(modelo.getValueAt(selectedRow, 0).toString()); // Nome
+            jTextField2.setText(modelo.getValueAt(selectedRow, 1).toString()); // Sobrenome
+            jTextField3.setText(modelo.getValueAt(selectedRow, 2).toString()); // Telefone
+
+            // Agora o botão de "Salvar" irá atualizar os dados do cliente
+            jButton1.setText("Atualizar");
+
+            // Definir uma variável global (se necessário) para armazenar o índice do cliente que está sendo editado
+            // Exemplo:
+            // editingIndex = selectedRow;
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um cliente para editar.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String searchText = jTextField4.getText().toLowerCase(); // Converte para minúsculas para facilitar a busca
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+        // Se o campo de pesquisa estiver vazio, exibe todos os clientes (limpa a seleção)
+        if (searchText.isEmpty()) {
+            jTable1.clearSelection(); // Limpa qualquer seleção de linhas
+            return;
+        }
+
+        // Remove a seleção de qualquer linha antes de começar a pesquisa
+        jTable1.clearSelection();
+
+        // Percorre todas as linhas da tabela e encontra as que correspondem ao texto de pesquisa
+        boolean existe = false; // Ver se existe
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            String nome = modelo.getValueAt(i, 0).toString().toLowerCase(); // Nome
+            String sobrenome = modelo.getValueAt(i, 1).toString().toLowerCase(); // Sobrenome
+            String telefone = modelo.getValueAt(i, 2).toString().toLowerCase(); // Telefone
+
+            // Verifica se algum campo contém o texto da pesquisa
+            if (nome.contains(searchText) || sobrenome.contains(searchText) || telefone.contains(searchText)) {
+                jTable1.addRowSelectionInterval(i, i); // Seleciona a linha correspondente
+                existe = true;
+            }
+        }
+
+        // Caso não tenha encontrado nenhum cliente
+        if (!existe) {
+            JOptionPane.showMessageDialog(this, "Nenhum cliente encontrado!", "Resultado da Pesquisa", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
@@ -416,11 +560,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTextField1.setText("");
         jTextField2.setText("");
         jTextField3.setText("");
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:                                       
+        // TODO add your handling code here:
         // Obtém a linha selecionada na tabela
         int selectedRow = jTable1.getSelectedRow();
 
@@ -437,154 +580,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
                 // Se você tiver uma lista de clientes, também remova da lista
                 // Exemplo (supondo que 'clientes' seja sua lista de clientes):
-                // clientes.remove(selectedRow); 
+                // clientes.remove(selectedRow);
                 JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um cliente para excluir.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-
 
     }//GEN-LAST:event_jTextField4ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String searchText = jTextField4.getText().toLowerCase(); // Converte para minúsculas para facilitar a busca
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-
-        // Se o campo de pesquisa estiver vazio, exibe todos os clientes (limpa a seleção)
-        if (searchText.isEmpty()) {
-            jTable1.clearSelection(); // Limpa qualquer seleção de linhas
-            return;
-        }
-
-        // Remove a seleção de qualquer linha antes de começar a pesquisa
-        jTable1.clearSelection();
-
-        // Percorre todas as linhas da tabela e encontra as que correspondem ao texto de pesquisa
-        boolean existe = false; // Ver se existe
-        for (int i = 0; i < modelo.getRowCount(); i++) {
-            String nome = modelo.getValueAt(i, 0).toString().toLowerCase(); // Nome
-            String sobrenome = modelo.getValueAt(i, 1).toString().toLowerCase(); // Sobrenome
-            String telefone = modelo.getValueAt(i, 2).toString().toLowerCase(); // Telefone
-
-            // Verifica se algum campo contém o texto da pesquisa
-            if (nome.contains(searchText) || sobrenome.contains(searchText) || telefone.contains(searchText)) {
-                jTable1.addRowSelectionInterval(i, i); // Seleciona a linha correspondente
-                existe = true;
-            }
-        }
-
-        // Caso não tenha encontrado nenhum cliente
-        if (!existe) {
-            JOptionPane.showMessageDialog(this, "Nenhum cliente encontrado!", "Resultado da Pesquisa", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:                                        
-        // Obtém a linha selecionada na tabela
-        int selectedRow = jTable1.getSelectedRow();
-
-        // Verifica se uma linha foi selecionada
-        if (selectedRow != -1) {
-            // Carrega os dados do cliente na linha selecionada
-            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-
-            // Preenche os campos de texto com os dados do cliente selecionado
-            jTextField1.setText(modelo.getValueAt(selectedRow, 0).toString()); // Nome
-            jTextField2.setText(modelo.getValueAt(selectedRow, 1).toString()); // Sobrenome
-            jTextField3.setText(modelo.getValueAt(selectedRow, 2).toString()); // Telefone
-
-            // Agora o botão de "Salvar" irá atualizar os dados do cliente
-            jButton1.setText("Atualizar");
-
-            // Definir uma variável global (se necessário) para armazenar o índice do cliente que está sendo editado
-            // Exemplo:
-            // editingIndex = selectedRow;
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione um cliente para editar.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-
-
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:                                        
-        // Obtém a linha selecionada na tabela
-        int selectedRow = jTable1.getSelectedRow();
-
-        // Verifica se uma linha foi selecionada
-        if (selectedRow != -1) {
-            // Confirmação de exclusão
-            int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir este cliente?",
-                    "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                // Remove o cliente da tabela
-                DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-                modelo.removeRow(selectedRow); // Remove a linha selecionada
-
-                // Se você tiver uma lista de clientes, também remova da lista
-                // Exemplo (supondo que 'clientes' seja sua lista de clientes):
-                // clientes.remove(selectedRow); 
-                JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione um cliente para excluir.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void nomeSaborActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeSaborActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeSaborActionPerformed
-
-    private void cadastrarSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarSaborButtonActionPerformed
-        Sabor novoSabor;
-
-        // instanciar novo objeto do sabor dependendo do tipo
-        switch(tipoSabor.getSelectedIndex()) {
-            case 0 -> {
-                // sabor simples
-                novoSabor = new SaborSimples(nomeSabor.getText());
-            }
-            case 1 -> {
-                novoSabor = new SaborEspecial(nomeSabor.getText());
-            }
-            case 2 -> {
-                novoSabor = new SaborPremium(nomeSabor.getText());
-            }
-            default -> {
-                throw new RuntimeException("Index invalido no combo do tipo de sabor.");
-            }
-        }
-        
-        // inserir dados na tabela
-        DefaultTableModel modelo = (DefaultTableModel) tabelaSabores.getModel();
-        modelo.addRow(new Object[]{novoSabor.getNome(), novoSabor.getNome()});
-        
-        // mostrar mensagem de cliente cadastrado com sucesso
-        JOptionPane.showMessageDialog(this, "Sabor cadastrado com sucesso.");
-    }//GEN-LAST:event_cadastrarSaborButtonActionPerformed
-
-    private void editarSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarSaborButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editarSaborButtonActionPerformed
-
-    private void excluirSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirSaborButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_excluirSaborButtonActionPerformed
-
-    private void pesquisarSaborActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarSaborActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pesquisarSaborActionPerformed
-
-    private void pesquisarSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarSaborButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pesquisarSaborButtonActionPerformed
 
     /**
      * @param args the command line arguments

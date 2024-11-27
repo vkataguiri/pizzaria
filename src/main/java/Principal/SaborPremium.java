@@ -13,14 +13,6 @@ public class SaborPremium extends Sabor {
 
     public SaborPremium(String nome) {
         super(nome);
-        validarTipo(); // Valida o tipo
-    }
-
-    @Override
-    public void validarTipo() {
-        if (!"Premium".equalsIgnoreCase(this.getNome())) {
-            throw new IllegalArgumentException("O tipo do sabor deve ser Premium!");
-        }
     }
 
     @Override
