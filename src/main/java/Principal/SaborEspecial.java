@@ -27,9 +27,4 @@ public class SaborEspecial extends Sabor {
         }
         precoEspecial = preco;
     }
-
-    // Método para obter o preço
-    public static double getPrecoEspecial() {
-        return precoEspecial;
-    }
 }

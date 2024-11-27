@@ -293,7 +293,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -345,12 +345,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(cadastrarSaborButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(editarSaborButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(excluirSaborButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
         );
 
         jTabbedPane1.addTab("Cadastrar Sabor", jPanel3);
@@ -370,7 +370,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pesquisarSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarSaborButtonActionPerformed
-        // TODO add your handling code here:
+        tabelaSabores.clearSelection();
+        String textoPesquisa = pesquisarSabor.getText().toLowerCase();
+        DefaultTableModel modelo = (DefaultTableModel) tabelaSabores.getModel();
+
+        if (textoPesquisa.isEmpty()) {
+            return;
+        }
+
+        boolean existe = false;
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            if (modelo.getValueAt(i, 0).toString().toLowerCase().contains(textoPesquisa)) {
+                tabelaSabores.addRowSelectionInterval(i, i);
+                existe = true;
+            }
+        }
+
+        if (!existe) {
+            JOptionPane.showMessageDialog(this, "Nenhum sabor encontrado!", "Aviso", 2);
+        }
     }//GEN-LAST:event_pesquisarSaborButtonActionPerformed
 
     private void pesquisarSaborActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarSaborActionPerformed
@@ -378,49 +396,130 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_pesquisarSaborActionPerformed
 
     private void excluirSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirSaborButtonActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) tabelaSabores.getModel();
+        String saborNome = modelo.getValueAt(tabelaSabores.getSelectedRow(), 0).toString();
+        int opcao = JOptionPane.showConfirmDialog(this, "Deseja excluir o sabor " + saborNome + "?");
+        if (opcao == 0) {
+            modelo.removeRow(tabelaSabores.getSelectedRow());
+
+            // Remover sabor do gerenciador
+            Sabor sabor = GerenciadorSabores.encontrarPorNome(saborNome);
+            GerenciadorSabores.removerSabor(sabor);
+        }
     }//GEN-LAST:event_excluirSaborButtonActionPerformed
 
     private void editarSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarSaborButtonActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) tabelaSabores.getModel();
+        String tipo;
+        
+        // Verificar se usuario selecionou um sabor
+        try {
+            tipo = modelo.getValueAt(tabelaSabores.getSelectedRow(), 1).toString();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Selecione um sabor para editar.", "Erro", 0);
+            return;
+        }
+        
+        // Verificar se usuario selecionou mais de um sabor
+        if (tabelaSabores.getSelectedRowCount() > 1) {
+            JOptionPane.showMessageDialog(this, "Selecione apenas um sabor para editar.", "Erro", 0);
+        }
+
+        // Alterar texto do nome e tipo selecionado
+        nomeSabor.setText(modelo.getValueAt(tabelaSabores.getSelectedRow(), 0).toString());
+        switch (tipo) {
+            case ("Simples") -> {
+                tipoSabor.setSelectedIndex(0);
+            }
+            case ("Especial") -> {
+                tipoSabor.setSelectedIndex(1);
+            }
+            case ("Premium") -> {
+                tipoSabor.setSelectedIndex(2);
+            }
+        }
+
+        // Alterar texto do botao de confirmar
+        cadastrarSaborButton.setText("Atualizar");
     }//GEN-LAST:event_editarSaborButtonActionPerformed
 
     private void cadastrarSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarSaborButtonActionPerformed
         String nome = nomeSabor.getText();
+        String tipo;
 
         // Nome vazio
         if (nome.equals("")) {
             JOptionPane.showMessageDialog(this, "O nome não pode estar vazio.", "Erro", 0);
+            return;
         }
 
+        // Nome ja existe
+        try {
+            // Checa se o botao NAO esta no modo de edicao.
+            if (!cadastrarSaborButton.getText().equalsIgnoreCase("Atualizar")) {
+                GerenciadorSabores.encontrarPorNome(nome);
+                JOptionPane.showMessageDialog(this, "O nome do sabor precisa ser único.", "Erro", 0);
+                return;
+            }
+        } catch (RuntimeException e) {
+            System.out.println("Informacoes do novo sabor estao consistentes.");
+        }
+
+        // Instanciar novo objeto do sabor dependendo do tipo
         Sabor novoSabor;
-        // instanciar novo objeto do sabor dependendo do tipo
         try {
             switch (tipoSabor.getSelectedIndex()) {
                 case 0 -> {
-                    // sabor simples
                     novoSabor = new SaborSimples(nome);
+                    tipo = "Simples";
                 }
                 case 1 -> {
                     novoSabor = new SaborEspecial(nome);
+                    tipo = "Especial";
                 }
                 case 2 -> {
                     novoSabor = new SaborPremium(nome);
+                    tipo = "Premium";
                 }
                 default -> {
                     throw new RuntimeException("Index invalido no combo do tipo de sabor.");
                 }
             }
-        } catch (IllegalArgumentException e) {
+        } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(this, e, "Erro", 0);
             return;
         }
 
-        // inserir dados na tabela
-        DefaultTableModel modelo = (DefaultTableModel) tabelaSabores.getModel();
-        modelo.addRow(new Object[]{novoSabor.getNome(), novoSabor.getNome()});
+        // Modo de edicao de sabores
+        if (cadastrarSaborButton.getText().equalsIgnoreCase("Atualizar")) {
+            novoSabor = null; // Seta novo sabor como null para ele ser deletado pelo Garbage Collector.
 
-        // mostrar mensagem de cliente cadastrado com sucesso
+            DefaultTableModel modelo = (DefaultTableModel) tabelaSabores.getModel();
+            int saborSelecionado = tabelaSabores.getSelectedRow();
+
+            // Editar no gerenciador
+            String nomeTabela = modelo.getValueAt(saborSelecionado, 0).toString();
+            Sabor sabor = GerenciadorSabores.encontrarPorNome(nomeTabela);
+            GerenciadorSabores.editarSabor(sabor, nome, tipo);
+
+            // Editar na tabela
+            modelo.setValueAt(nome, saborSelecionado, 0);
+            modelo.setValueAt(tipo, saborSelecionado, 1);
+
+            // Voltar o botao para o modo de cadastro
+            cadastrarSaborButton.setText("Cadastrar sabor");
+
+            JOptionPane.showMessageDialog(this, "Sabor atualizado com sucesso.", "Sucesso", 1);
+
+            return;
+        }
+
+        // Inserir dados na tabela
+        DefaultTableModel modelo = (DefaultTableModel) tabelaSabores.getModel();
+        modelo.addRow(new Object[]{novoSabor.getNome(), tipo});
+        GerenciadorSabores.adicionarSabor(novoSabor);
+
+        // Mostrar mensagem de cliente cadastrado com sucesso
         JOptionPane.showMessageDialog(this, "Sabor cadastrado com sucesso.", "Sucesso", 1);
     }//GEN-LAST:event_cadastrarSaborButtonActionPerformed
 

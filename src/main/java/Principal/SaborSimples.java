@@ -27,11 +27,6 @@ public class SaborSimples extends Sabor {
         }
         precoSimples = preco;
     }
-
-    // Método para obter o preço
-    public static double getPrecoSimples() {
-        return precoSimples;
-    }
 }
 
 

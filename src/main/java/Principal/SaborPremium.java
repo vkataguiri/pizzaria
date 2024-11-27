@@ -27,9 +27,4 @@ public class SaborPremium extends Sabor {
         }
         precoPremium = preco;
     }
-
-    // Método para obter o preço
-    public static double getPrecoPremium() {
-        return precoPremium;
-    }
 }
