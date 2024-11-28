@@ -25,6 +25,10 @@ public class Pedido {
     public void adicionarPizza(Pizza pizza) {
         this.pizzas.add(pizza);
     }
+    
+    public Cliente getCliente() {
+        return this.cliente;
+    }
 
     public void setEstado(String estado) {
         if (!estado.equals("Aberto") && !estado.equals("A Caminho") && !estado.equals("Entregue")) {
@@ -33,7 +37,7 @@ public class Pedido {
         this.estado = estado;
     }
 
-    public double calcularPrecoTotal(double precoSimples, double precoEspecial, double precoPremium) {
-        return pizzas.stream().mapToDouble(p -> p.calcularPreco(precoSimples, precoEspecial, precoPremium)).sum();
+    public double calcularPrecoTotal(double preco1, double preco2) {
+        return pizzas.stream().mapToDouble(p -> p.calcularPreco(preco1,preco2)).sum();
     }
 }

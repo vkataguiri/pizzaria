@@ -9,24 +9,19 @@ package Principal;
  * @author amene
  */
 public class Circulo extends Forma {
-    private double raio;
 
     public Circulo(double raio) {
-        this.raio = raio;
-    }
-
-    public double getRaio() {
-        return raio;
-    }
-
-    public void setRaio(double raio) {
-        this.raio = raio;
+        super(raio);
     }
 
     @Override
     public double calcularArea() {
-        return Math.PI * raio * raio;
+        return Math.PI * Math.pow(tamanho, 2);  // Calcula a área do círculo (π * r²)
+    }
+
+    // Método auxiliar caso queira criar o círculo a partir da área
+    public static Circulo daArea(double area) {
+        double raio = Math.sqrt(area / Math.PI);
+        return new Circulo(raio);
     }
 }
-
-

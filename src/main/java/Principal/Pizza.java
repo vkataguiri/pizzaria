@@ -21,17 +21,22 @@ public class Pizza {
         this.forma = forma;
         this.sabores = sabores;
     }
+    
+    public double calcularArea() {
+        return forma.calcularArea();
+}
+     
+    public double calcularPreco(double precoSabor1, double precoSabor2) {
+        double area = calcularArea();
+        double precoTotal = 0;
 
-    public double calcularPreco(double precoSimples, double precoEspecial, double precoPremium) {
-        double precoPorCm2 = sabores.stream()
-            .mapToDouble(s -> {
-                if (s instanceof SaborSimples) return precoSimples;
-                if (s instanceof SaborEspecial) return precoEspecial;
-                if (s instanceof SaborPremium) return precoPremium;
-                throw new IllegalArgumentException("Tipo de sabor inválido.");
-            })
-            .average()
-            .orElse(0);
-        return forma.calcularArea() * precoPorCm2;
+        // Se houver dois sabores, divide a pizza ao meio entre os sabores
+        if (sabores.size() == 2) {
+            precoTotal = (precoSabor1 + precoSabor2) * (area / 2);  // Divide a área pela metade para dois sabores
+        } else if (sabores.size() == 1) {
+            precoTotal = precoSabor1 * area;  // Um único sabor cobre toda a área
+        }
+
+        return precoTotal;
     }
 }

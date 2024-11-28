@@ -12,14 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GerenciadorDeClientes {
-    private List<Cliente> clientes;
+    private static List<Cliente> clientes;
 
     public GerenciadorDeClientes() {
         this.clientes = new ArrayList<>();
     }
 
     public void adicionarCliente(Cliente cliente) {
-        this.clientes.add(cliente);
+        if (cliente != null) {
+            clientes.add(cliente);  // Adiciona cliente à lista
+        }
     }
 
     public void removerCliente(String telefone) {
@@ -32,7 +34,7 @@ public class GerenciadorDeClientes {
         }
     }
 
-    public Cliente buscarClientePorTelefone(String telefone) {
+    public static Cliente buscarClientePorTelefone(String telefone) {
         for (Cliente cliente : clientes) {
             if (cliente.getTelefone().equals(telefone)) {
                 return cliente;
@@ -51,7 +53,7 @@ public class GerenciadorDeClientes {
         return resultados;
     }
 
-    public List<Cliente> getClientes() {
+    public static List<Cliente> getClientes() {
         return clientes;
     }
 }

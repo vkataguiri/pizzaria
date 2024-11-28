@@ -12,6 +12,8 @@ import java.util.InputMismatchException;
 import javax.swing.*;  // Para os componentes gráficos (JFrame, JPanel, JButton, JLabel, JTextField, etc.)
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;  // Para manipulação da tabela (JTable e DefaultTableModel)
+import java.util.ArrayList;
+import java.util.List;
 
 public class TelaPrincipal extends javax.swing.JFrame {
 
@@ -20,6 +22,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+        
+       
+        popularComboFormas();
+        popularComboSabores();
     }
 
     /**
@@ -31,25 +37,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGrupo = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -67,6 +57,49 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tabelaPrecos = new javax.swing.JTable();
         editarPrecoButton = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        comboBoxTelCliente = new javax.swing.JComboBox<>();
+        comboBoxFormaPizza = new javax.swing.JComboBox<>();
+        comboBoxSabor1 = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        comboBoxSabor2Op = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        btnDimensoes = new javax.swing.JCheckBox();
+        btnArea = new javax.swing.JCheckBox();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        textFieldDimArea = new javax.swing.JTextField();
+        labelDimArea = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        btnCalcular = new javax.swing.JButton();
+        btnAddPizza = new javax.swing.JButton();
+        btnFimPedido = new javax.swing.JButton();
+        btnRemovePizza = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+        minDimArea = new javax.swing.JLabel();
+        maxDimArea = new javax.swing.JLabel();
+        valMinDimArea = new javax.swing.JLabel();
+        valMaxDimArea = new javax.swing.JLabel();
+        labelPrecoTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,154 +115,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Menu Principal", jPanel1);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nome", "Sobrenome", "Telefone"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Nome:");
-
-        jLabel2.setText("Sobrenome:");
-
-        jLabel3.setText("Telefone:");
-
-        jLabel4.setText("Pesquisar:");
-
-        jButton1.setText("Salvar");
-        jButton1.setToolTipText("Salvar dados do Cliente");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Ok");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Editar");
-        jButton3.setToolTipText("Edita o Cliente");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("Deletar");
-        jButton4.setToolTipText("Deleta o Cliente");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addGap(31, 31, 31))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addComponent(jSeparator1)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(149, 149, 149)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)
-                        .addComponent(jButton3)
-                        .addComponent(jButton4))
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("Cadastrar Cliente", jPanel2);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 821, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 657, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Realizar Pedido", jPanel4);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -398,6 +283,372 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Cadastrar Sabor", jPanel3);
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Sobrenome", "Telefone"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Nome:");
+
+        jLabel2.setText("Sobrenome:");
+
+        jLabel3.setText("Telefone:");
+
+        jButton1.setText("Salvar");
+        jButton1.setToolTipText("Salvar dados do Cliente");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Pesquisar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Editar");
+        jButton3.setToolTipText("Edita o Cliente");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Deletar");
+        jButton4.setToolTipText("Deleta o Cliente");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addGap(35, 35, 35))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Cadastrar Cliente", jPanel2);
+
+        comboBoxTelCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxTelClienteActionPerformed(evt);
+            }
+        });
+
+        comboBoxFormaPizza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Circulo", "Quadrado", "Triangulo", " " }));
+        comboBoxFormaPizza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxFormaPizzaActionPerformed(evt);
+            }
+        });
+
+        comboBoxSabor1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", " " }));
+        comboBoxSabor1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxSabor1ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Telefone do Cliente:");
+
+        jLabel8.setText("Forma da Pizza:");
+
+        comboBoxSabor2Op.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", " " }));
+        comboBoxSabor2Op.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxSabor2OpActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Sabor 1:");
+
+        jLabel10.setText("Sabor 2 (Opcional):");
+
+        jLabel11.setText("Tamanho:");
+
+        btnGrupo.add(btnDimensoes);
+        btnDimensoes.setText("Dimensões");
+        btnDimensoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDimensoesActionPerformed(evt);
+            }
+        });
+
+        btnGrupo.add(btnArea);
+        btnArea.setText("Area Total");
+        btnArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAreaActionPerformed(evt);
+            }
+        });
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Forma", "Sabor 1", "Sabor 2", "Área", "Preço Total"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable2);
+
+        textFieldDimArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldDimAreaActionPerformed(evt);
+            }
+        });
+
+        labelDimArea.setText("Dimensão/Area:");
+
+        jLabel13.setText("Itens do Pedido");
+
+        btnCalcular.setText("Calcular");
+        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularActionPerformed(evt);
+            }
+        });
+
+        btnAddPizza.setText("Adicionar Pizza");
+        btnAddPizza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPizzaActionPerformed(evt);
+            }
+        });
+
+        btnFimPedido.setText("Finalizar Pedido");
+        btnFimPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFimPedidoActionPerformed(evt);
+            }
+        });
+
+        btnRemovePizza.setText("Remover Pizza");
+        btnRemovePizza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemovePizzaActionPerformed(evt);
+            }
+        });
+
+        minDimArea.setText("Min:");
+
+        maxDimArea.setText("Max:");
+
+        valMinDimArea.setText("0");
+
+        valMaxDimArea.setText("0");
+
+        labelPrecoTotal.setText("R$: 0");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel13)
+                .addGap(207, 207, 207))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel9)
+                            .addComponent(comboBoxTelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(comboBoxFormaPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addComponent(comboBoxSabor1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)
+                            .addComponent(labelDimArea)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                    .addComponent(btnDimensoes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnArea, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(comboBoxSabor2Op, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(textFieldDimArea, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(btnFimPedido))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(minDimArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(maxDimArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(valMinDimArea, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                            .addComponent(valMaxDimArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(87, 87, 87)
+                        .addComponent(labelPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnRemovePizza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAddPizza, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4))
+                        .addGap(4, 4, 4)))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel13)
+                        .addGap(9, 9, 9)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboBoxTelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboBoxFormaPizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboBoxSabor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboBoxSabor2Op, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnDimensoes)
+                            .addComponent(btnArea))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelDimArea)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textFieldDimArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCalcular))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(minDimArea)
+                            .addComponent(valMinDimArea)
+                            .addComponent(labelPrecoTotal))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(maxDimArea, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(valMaxDimArea))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(btnFimPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAddPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRemovePizza, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(114, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Realizar Pedido", jPanel4);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -411,7 +662,100 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+ 
+ private void popularComboClientes() {
+    comboBoxTelCliente.removeAllItems();  // Limpa os itens antigos
+    List<Cliente> clientes = GerenciadorDeClientes.getClientes(); // Obtém a lista de clientes
+    // Verifica se a lista de clientes não é null e tem elementos
+    if (clientes != null && clientes.size() > 0) {
+        for (Cliente cliente : clientes) {
+            comboBoxTelCliente.addItem(cliente.getTelefone());  // Adiciona o telefone ao combobox
+        }
+    } else {
+        // Se a lista de clientes estiver vazia ou null, você pode exibir uma mensagem.
+        System.out.println("Nenhum cliente cadastrado!");
+    }
+}
 
+private void popularComboSabores() {
+    comboBoxSabor1.removeAllItems();  // Limpa os itens existentes
+    comboBoxSabor2Op.removeAllItems();  // Limpa os itens existentes
+    List<Sabor> sabores = GerenciadorSabores.listarSabores(); // Obtém a lista de sabores
+    for (Sabor sabor : sabores) {
+        comboBoxSabor1.addItem(sabor.getNome());  // Adiciona o nome do sabor ao combobox1
+        comboBoxSabor2Op.addItem(sabor.getNome());  // Adiciona o nome do sabor ao combobox2
+    }
+}
+
+private void popularComboFormas() {
+    comboBoxFormaPizza.removeAllItems();  // Limpa os itens existentes
+    comboBoxFormaPizza.addItem("Circulo");
+    comboBoxFormaPizza.addItem("Quadrado");
+    comboBoxFormaPizza.addItem("Triangulo");
+}
+
+private boolean validarDimensao(double valor, String forma) {
+    if (modoInsercaoLado) {  // Validar pelo lado
+        switch (forma) {
+            case "Circulo":
+                return valor >= 10 && valor <= 40; // Lado do Círculo
+            case "Quadrado":
+                return valor >= 10 && valor <= 40; // Lado do Quadrado
+            case "Triangulo":
+                return valor >= 20 && valor <= 60; // Lado do Triângulo
+        }
+    } else { // Validar pela área
+        switch (forma) {
+            case "Circulo":
+                return valor >= 300 && valor <= 2000; // Área do Círculo
+            case "Quadrado":
+                return valor >= 100 && valor <= 1600; // Área do Quadrado
+            case "Triangulo":
+                return valor >= 173 && valor <= 900; // Área do Triângulo
+        }
+    }
+    return false;
+}
+
+private void atualizarLimitesDimensao(String modo) {
+    String forma = comboBoxFormaPizza.getSelectedItem().toString();
+    
+    if (modo.equals("lado")) { // Quando for inserção de lado (ou raio)
+        switch (forma) {
+            case "Circulo":
+                valMinDimArea.setText("10"); // Valor mínimo para o raio
+                valMaxDimArea.setText("40"); // Valor máximo para o raio
+                break;
+            case "Quadrado":
+                valMinDimArea.setText("10"); // Valor mínimo para o lado
+                valMaxDimArea.setText("40"); // Valor máximo para o lado
+                break;
+            case "Triangulo":
+                valMinDimArea.setText("20"); // Valor mínimo para o lado
+                valMaxDimArea.setText("60"); // Valor máximo para o lado
+                break;
+        }
+    } else { // Quando for inserção de área
+        switch (forma) {
+            case "Circulo":
+                valMinDimArea.setText("300"); // Valor mínimo para a área
+                valMaxDimArea.setText("2000"); // Valor máximo para a área
+                break;
+            case "Quadrado":
+                valMinDimArea.setText("100"); // Valor mínimo para a área
+                valMaxDimArea.setText("1600"); // Valor máximo para a área
+                break;
+            case "Triangulo":
+                valMinDimArea.setText("173"); // Valor mínimo para a área
+                valMaxDimArea.setText("900"); // Valor máximo para a área
+                break;
+        }
+    }
+}
+
+
+
+    
     private void pesquisarSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarSaborButtonActionPerformed
         tabelaSabores.clearSelection();
         String textoPesquisa = pesquisarSabor.getText().toLowerCase();
@@ -614,9 +958,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             // Agora o botão de "Salvar" irá atualizar os dados do cliente
             jButton1.setText("Atualizar");
 
-            // Definir uma variável global (se necessário) para armazenar o índice do cliente que está sendo editado
-            // Exemplo:
-            // editingIndex = selectedRow;
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um cliente para editar.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -780,6 +1121,270 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_editarPrecoButtonActionPerformed
 
+    private void comboBoxSabor2OpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSabor2OpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxSabor2OpActionPerformed
+
+    private void btnDimensoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDimensoesActionPerformed
+        // TODO add your handling code here:
+         modoInsercaoLado = true; // Altera para modo de lado (ou raio)
+        labelDimArea.setText("Lado:");  // Atualiza o texto para "Lado"
+        atualizarLimitesDimensao("lado");
+        labelDimArea.setText("Dimensão:");
+    }//GEN-LAST:event_btnDimensoesActionPerformed
+
+    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        // TODO add your handling code here:
+        // Obtém as escolhas do usuário
+    String formaSelecionada = comboBoxFormaPizza.getSelectedItem().toString();
+    String sabor1 = comboBoxSabor1.getSelectedItem().toString();
+    String sabor2 = comboBoxSabor2Op.getSelectedItem().toString();
+    
+    double tamanho = Double.parseDouble(textFieldDimArea.getText()); // Obtém o tamanho informado
+
+    // Valida a dimensão (lado ou área)
+    if (!validarDimensao(tamanho, formaSelecionada)) {
+        JOptionPane.showMessageDialog(this, "Valor de dimensão inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Criação da forma concreta (Círculo, Quadrado ou Triângulo)
+    Forma forma = null;
+    switch (formaSelecionada) {
+        case "Circulo":
+            if (modoInsercaoLado) {
+                forma = new Circulo(tamanho);  // Cria o Círculo com o lado (raio)
+            } else {
+                forma = Circulo.daArea(tamanho);  // Cria o Círculo com a área
+            }
+            break;
+        case "Quadrado":
+            if (modoInsercaoLado) {
+                forma = new Quadrado(tamanho);  // Cria o Quadrado com o lado
+            } else {
+                forma = Quadrado.daArea(tamanho);  // Cria o Quadrado com a área
+            }
+            break;
+        case "Triangulo":
+            if (modoInsercaoLado) {
+                forma = new Triangulo(tamanho);  // Cria o Triângulo com o lado
+            } else {
+                forma = Triangulo.daArea(tamanho);  // Cria o Triângulo com a área
+            }
+            break;
+        default:
+            JOptionPane.showMessageDialog(this, "Forma inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+    }
+
+    // Criação dos sabores e obtenção dos preços
+    Sabor sabor1Obj = GerenciadorSabores.encontrarPorNome(sabor1);
+    Sabor sabor2Obj = GerenciadorSabores.encontrarPorNome(sabor2);
+
+    // Criação da lista de sabores (um ou dois sabores)
+    List<Sabor> sabores = new ArrayList<>();
+    sabores.add(sabor1Obj);  // Adiciona o primeiro sabor
+
+    // Se houver o segundo sabor, adiciona à lista (verifica se sabor2Obj não é null)
+    if (sabor2Obj != null) {
+        sabores.add(sabor2Obj);  // Adiciona o segundo sabor (se houver)
+    }
+
+    // Criação da pizza com a forma e os sabores
+    Pizza pizza = new Pizza(forma, sabores);
+
+    // Obtendo o preço de cada sabor
+    double precoSabor1 = sabor1Obj.getPreco(); // Preço do primeiro sabor
+    double precoSabor2 = (sabor2Obj != null) ? sabor2Obj.getPreco() : 0; // Preço do segundo sabor, 0 se não houver
+
+    // Calcula o preço da pizza
+    double precoTotal = pizza.calcularPreco(precoSabor1, precoSabor2);
+
+    // Exibe o preço total
+    labelPrecoTotal.setText("Preço Total: R$ " + precoTotal);
+    }//GEN-LAST:event_btnCalcularActionPerformed
+
+    private void btnAddPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPizzaActionPerformed
+        // TODO add your handling code here:
+        // Obtém as escolhas do usuário
+    String formaSelecionada = comboBoxFormaPizza.getSelectedItem().toString();
+    String sabor1 = comboBoxSabor1.getSelectedItem().toString();
+    String sabor2 = comboBoxSabor2Op.getSelectedItem().toString();
+    
+    double tamanho = Double.parseDouble(textFieldDimArea.getText()); // Obtém o tamanho informado
+
+    // Valida a dimensão (lado ou área)
+    if (!validarDimensao(tamanho, formaSelecionada)) {
+        JOptionPane.showMessageDialog(this, "Valor de dimensão inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Criação da forma concreta (Círculo, Quadrado ou Triângulo)
+    Forma forma = null;
+    switch (formaSelecionada) {
+        case "Circulo":
+            if (modoInsercaoLado) {
+                forma = new Circulo(tamanho);  // Cria o Círculo com o lado (raio)
+            } else {
+                forma = Circulo.daArea(tamanho);  // Cria o Círculo com a área
+            }
+            break;
+        case "Quadrado":
+            if (modoInsercaoLado) {
+                forma = new Quadrado(tamanho);  // Cria o Quadrado com o lado
+            } else {
+                forma = Quadrado.daArea(tamanho);  // Cria o Quadrado com a área
+            }
+            break;
+        case "Triangulo":
+            if (modoInsercaoLado) {
+                forma = new Triangulo(tamanho);  // Cria o Triângulo com o lado
+            } else {
+                forma = Triangulo.daArea(tamanho);  // Cria o Triângulo com a área
+            }
+            break;
+        default:
+            JOptionPane.showMessageDialog(this, "Forma inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+    }
+
+    // Criação dos sabores e obtenção dos preços
+    Sabor sabor1Obj = GerenciadorSabores.encontrarPorNome(sabor1);
+    Sabor sabor2Obj = GerenciadorSabores.encontrarPorNome(sabor2);
+
+    // Criação da lista de sabores (um ou dois sabores)
+    List<Sabor> sabores = new ArrayList<>();
+    sabores.add(sabor1Obj);  // Adiciona o primeiro sabor
+
+    // Se houver o segundo sabor, adiciona à lista (verifica se sabor2Obj não é null)
+    if (sabor2Obj != null) {
+        sabores.add(sabor2Obj);  // Adiciona o segundo sabor (se houver)
+    }
+
+    // Criação da pizza com a forma e os sabores
+    Pizza pizza = new Pizza(forma, sabores);
+
+    // Obtendo o preço de cada sabor
+    double precoSabor1 = sabor1Obj.getPreco(); // Preço do primeiro sabor
+    double precoSabor2 = (sabor2Obj != null) ? sabor2Obj.getPreco() : 0; // Preço do segundo sabor, 0 se não houver
+
+    // Adiciona a pizza à lista de pizzas no pedido
+    DefaultTableModel modelo = (DefaultTableModel) jTable2.getModel();
+    modelo.addRow(new Object[]{
+        formaSelecionada, 
+        sabor1, 
+        sabor2, 
+        pizza.calcularArea(), 
+        pizza.calcularPreco(precoSabor1, precoSabor2) // Calcula o preço com base nos preços dos sabores
+    });
+    }//GEN-LAST:event_btnAddPizzaActionPerformed
+
+    private void btnRemovePizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePizzaActionPerformed
+        // TODO add your handling code here:
+        // Obtém a linha selecionada na tabela
+    int selectedRow = jTable2.getSelectedRow();
+    
+    if (selectedRow != -1) {
+        // Remove a linha da tabela
+        DefaultTableModel modelo = (DefaultTableModel) jTable2.getModel();
+        modelo.removeRow(selectedRow);
+    } else {
+        // Caso não haja linha selecionada, exibe uma mensagem de erro
+        JOptionPane.showMessageDialog(this, "Selecione uma pizza para remover.", "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+
+    
+    }//GEN-LAST:event_btnRemovePizzaActionPerformed
+
+    private void btnFimPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFimPedidoActionPerformed
+        // TODO add your handling code here:
+       String clienteTelefone = comboBoxTelCliente.getSelectedItem().toString();
+    Cliente cliente = GerenciadorDeClientes.buscarClientePorTelefone(clienteTelefone);
+
+    if (cliente == null) {
+        JOptionPane.showMessageDialog(this, "Cliente não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Cria o pedido e adiciona as pizzas
+    Pedido pedido = new Pedido(cliente);
+
+    // Adiciona as pizzas da tabela ao pedido
+    for (int i = 0; i < jTable2.getRowCount(); i++) {
+        String forma = jTable2.getValueAt(i, 0).toString();
+        String sabor1 = jTable2.getValueAt(i, 1).toString();
+        String sabor2 = jTable2.getValueAt(i, 2).toString();
+        double tamanho = Double.parseDouble(jTable2.getValueAt(i, 3).toString());
+
+        Forma formaObj = null;
+        switch (forma) {
+            case "Circulo":
+                formaObj = new Circulo(tamanho);
+                break;
+            case "Quadrado":
+                formaObj = new Quadrado(tamanho);
+                break;
+            case "Triangulo":
+                formaObj = new Triangulo(tamanho);
+                break;
+        }
+
+        Sabor sabor1Obj = GerenciadorSabores.encontrarPorNome(sabor1);
+        Sabor sabor2Obj = GerenciadorSabores.encontrarPorNome(sabor2);
+
+        // Cria a pizza com a forma e os sabores
+        List<Sabor> sabores = new ArrayList<>();
+        sabores.add(sabor1Obj); // Adiciona o primeiro sabor
+
+        if (sabor2Obj != null) {
+            sabores.add(sabor2Obj); // Adiciona o segundo sabor, se existir
+        }
+
+        Pizza pizza = new Pizza(formaObj, sabores);
+        pedido.adicionarPizza(pizza);
+    }
+
+    // Define o estado do pedido e adiciona à lista de pedidos
+    pedido.setEstado("A Caminho");
+    GerenciadorDePedidos.adicionarPedido(pedido);
+
+    // Exibe uma mensagem informando que o pedido foi finalizado
+    JOptionPane.showMessageDialog(this, "Pedido finalizado com sucesso!");
+
+    // Limpa os campos da tela
+    comboBoxTelCliente.setSelectedIndex(-1);
+    comboBoxSabor1.setSelectedIndex(-1);
+    comboBoxSabor2Op.setSelectedIndex(-1);
+    comboBoxFormaPizza.setSelectedIndex(-1);
+    textFieldDimArea.setText("");
+    }//GEN-LAST:event_btnFimPedidoActionPerformed
+private boolean modoInsercaoLado = false; // false: modo de área, true: modo de lado (ou raio)
+    private void btnAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAreaActionPerformed
+        // TODO add your handling code here:
+        modoInsercaoLado = false; // Altera para modo de área
+        labelDimArea.setText("Área:");  // Atualiza o texto para "Área"
+        atualizarLimitesDimensao("area");
+        labelDimArea.setText("Area:");
+    }//GEN-LAST:event_btnAreaActionPerformed
+
+    private void textFieldDimAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDimAreaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldDimAreaActionPerformed
+
+    private void comboBoxSabor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSabor1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxSabor1ActionPerformed
+
+    private void comboBoxFormaPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxFormaPizzaActionPerformed
+        // TODO add your handling code here:
+            
+    }//GEN-LAST:event_comboBoxFormaPizzaActionPerformed
+
+    private void comboBoxTelClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTelClienteActionPerformed
+        // TODO add your handling code here:
+        popularComboClientes();
+    }//GEN-LAST:event_comboBoxTelClienteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -805,7 +1410,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddPizza;
+    private javax.swing.JCheckBox btnArea;
+    private javax.swing.JButton btnCalcular;
+    private javax.swing.JCheckBox btnDimensoes;
+    private javax.swing.JButton btnFimPedido;
+    private javax.swing.ButtonGroup btnGrupo;
+    private javax.swing.JButton btnRemovePizza;
     private javax.swing.JButton cadastrarSaborButton;
+    private javax.swing.JComboBox<String> comboBoxFormaPizza;
+    private javax.swing.JComboBox<String> comboBoxSabor1;
+    private javax.swing.JComboBox<String> comboBoxSabor2Op;
+    private javax.swing.JComboBox<String> comboBoxTelCliente;
     private javax.swing.JButton editarPrecoButton;
     private javax.swing.JButton editarSaborButton;
     private javax.swing.JButton excluirSaborButton;
@@ -814,11 +1430,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -827,19 +1448,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel labelDimArea;
+    private javax.swing.JLabel labelPrecoTotal;
+    private javax.swing.JLabel maxDimArea;
+    private javax.swing.JLabel minDimArea;
     private javax.swing.JTextField nomeSabor;
     private javax.swing.JTextField pesquisarSabor;
     private javax.swing.JButton pesquisarSaborButton;
     private javax.swing.JTable tabelaPrecos;
     private javax.swing.JTable tabelaSabores;
+    private javax.swing.JTextField textFieldDimArea;
     private javax.swing.JComboBox<String> tipoSabor;
+    private javax.swing.JLabel valMaxDimArea;
+    private javax.swing.JLabel valMinDimArea;
     // End of variables declaration//GEN-END:variables
 }

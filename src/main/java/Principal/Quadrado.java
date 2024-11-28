@@ -9,18 +9,20 @@ package Principal;
  * @author amene
  */
 public class Quadrado extends Forma {
-    private double lado;
 
     public Quadrado(double lado) {
-        if (lado < 10 || lado > 40) {
-            throw new IllegalArgumentException("Lado deve estar entre 10 e 40 cm.");
-        }
-        this.lado = lado;
+        super(lado);
     }
 
     @Override
     public double calcularArea() {
-        return lado * lado;
+        return Math.pow(tamanho, 2);  // Calcula a área do quadrado (lado²)
+    }
+
+    // Método auxiliar caso queira criar o quadrado a partir da área
+    public static Quadrado daArea(double area) {
+        double lado = Math.sqrt(area);
+        return new Quadrado(lado);
     }
 }
 
