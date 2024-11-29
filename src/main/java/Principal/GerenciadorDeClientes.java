@@ -12,17 +12,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GerenciadorDeClientes {
-    private List<Cliente> clientes;
 
-    public GerenciadorDeClientes() {
-        this.clientes = new ArrayList<>();
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
+
+    public static void adicionarCliente(Cliente cliente) {
+        if (cliente != null) {
+            clientes.add(cliente);  // Adiciona cliente à lista
+        }
     }
 
-    public void adicionarCliente(Cliente cliente) {
-        this.clientes.add(cliente);
+    public static void editarCliente(String nomeAntigo, String novoNome, String novoSobrenome, String novoTelefone) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getNome().equalsIgnoreCase(nomeAntigo)) {
+                cliente.setNome(novoNome);
+                cliente.setSobrenome(novoSobrenome);
+                cliente.setTelefone(novoTelefone);
+            }
+        }
     }
 
-    public void removerCliente(String telefone) {
+    public static void removerCliente(String telefone) {
         Cliente cliente = buscarClientePorTelefone(telefone);
         if (cliente != null) {
             cliente.removerTodosPedidos(); // Remove todos os pedidos associados ao cliente
@@ -32,7 +41,7 @@ public class GerenciadorDeClientes {
         }
     }
 
-    public Cliente buscarClientePorTelefone(String telefone) {
+    public static Cliente buscarClientePorTelefone(String telefone) {
         for (Cliente cliente : clientes) {
             if (cliente.getTelefone().equals(telefone)) {
                 return cliente;
@@ -41,7 +50,7 @@ public class GerenciadorDeClientes {
         return null;
     }
 
-    public List<Cliente> buscarClientesPorSobrenome(String sobrenome) {
+    public static List<Cliente> buscarClientesPorSobrenome(String sobrenome) {
         List<Cliente> resultados = new ArrayList<>();
         for (Cliente cliente : clientes) {
             if (cliente.getSobrenome().equalsIgnoreCase(sobrenome)) {
@@ -51,8 +60,7 @@ public class GerenciadorDeClientes {
         return resultados;
     }
 
-    public List<Cliente> getClientes() {
+    public static List<Cliente> getClientes() {
         return clientes;
     }
 }
-

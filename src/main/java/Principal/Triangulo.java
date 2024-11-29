@@ -9,17 +9,20 @@ package Principal;
  * @author amene
  */
 public class Triangulo extends Forma {
-    private double lado;
 
     public Triangulo(double lado) {
-        if (lado < 20 || lado > 60) {
-            throw new IllegalArgumentException("Lado deve estar entre 20 e 60 cm.");
-        }
-        this.lado = lado;
+        super(lado);
     }
 
     @Override
     public double calcularArea() {
-        return (Math.sqrt(3) / 4) * lado * lado; // Fórmula para área de um triângulo equilátero
+        return (Math.sqrt(3) / 4) * Math.pow(tamanho, 2);  // Fórmula para a área de um triângulo equilátero
+    }
+    
+    // Método auxiliar caso queira criar o triângulo a partir da área
+    public static Triangulo daArea(double area) {
+        double lado = Math.sqrt((4 * area) / Math.sqrt(3));
+        return new Triangulo(lado);
     }
 }
+
