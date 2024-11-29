@@ -12,19 +12,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GerenciadorDeClientes {
-    private static List<Cliente> clientes;
 
-    public GerenciadorDeClientes() {
-        this.clientes = new ArrayList<>();
-    }
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
 
-    public void adicionarCliente(Cliente cliente) {
+    public static void adicionarCliente(Cliente cliente) {
         if (cliente != null) {
             clientes.add(cliente);  // Adiciona cliente à lista
         }
     }
 
-    public void removerCliente(String telefone) {
+    public static void editarCliente(String nomeAntigo, String novoNome, String novoSobrenome, String novoTelefone) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getNome().equalsIgnoreCase(nomeAntigo)) {
+                cliente.setNome(novoNome);
+                cliente.setSobrenome(novoSobrenome);
+                cliente.setTelefone(novoTelefone);
+            }
+        }
+    }
+
+    public static void removerCliente(String telefone) {
         Cliente cliente = buscarClientePorTelefone(telefone);
         if (cliente != null) {
             cliente.removerTodosPedidos(); // Remove todos os pedidos associados ao cliente
@@ -43,7 +50,7 @@ public class GerenciadorDeClientes {
         return null;
     }
 
-    public List<Cliente> buscarClientesPorSobrenome(String sobrenome) {
+    public static List<Cliente> buscarClientesPorSobrenome(String sobrenome) {
         List<Cliente> resultados = new ArrayList<>();
         for (Cliente cliente : clientes) {
             if (cliente.getSobrenome().equalsIgnoreCase(sobrenome)) {
@@ -57,4 +64,3 @@ public class GerenciadorDeClientes {
         return clientes;
     }
 }
-

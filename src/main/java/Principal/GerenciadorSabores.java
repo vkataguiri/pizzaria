@@ -50,6 +50,10 @@ public class GerenciadorSabores {
     }
     
     public static Sabor encontrarPorNome(String nome) {
+        if (nome == null) {
+            return null;
+        }
+        
         for (Sabor sabor : sabores) {
             if (sabor.getNome().equalsIgnoreCase(nome)) {
                 return sabor;
