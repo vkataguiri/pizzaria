@@ -8,9 +8,9 @@ package Principal;
  *
  * @author amene
  */
-import java.util.InputMismatchException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;  // Para os componentes gráficos (JFrame, JPanel, JButton, JLabel, JTextField, etc.)
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;  // Para manipulação da tabela (JTable e DefaultTableModel)
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+
+        GerenciadorSabores.adicionarSabor(new SaborSimples("marguerita"));
+
+        Cliente novoCliente = new Cliente("aa", "aaaa", "11111111111");
+        comboBoxTelCliente.addItem(novoCliente.getTelefone());
+        GerenciadorDeClientes.adicionarCliente(novoCliente);
+
+        btnAtualizarEstado.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int linhaSelecionada = tabelaVisualizarPedido.getSelectedRow();
+                if (linhaSelecionada != -1) {
+                    String novoEstado = (String) cbEstado.getSelectedItem();
+                    Pedido pedido = GerenciadorDePedidos.listarPedidos().get(linhaSelecionada);
+                    GerenciadorDePedidos.alterarEstadoPedido(pedido.getCliente().getTelefone(), novoEstado);
+
+                    DefaultTableModel modelo = (DefaultTableModel) tabelaVisualizarPedido.getModel();
+                    modelo.setValueAt(novoEstado, linhaSelecionada, 2);
+                }
+            }
+        });
 
         popularComboFormas();
         popularComboSabores();
@@ -39,6 +60,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnGrupo = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        titulo = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        grr = new javax.swing.JTextArea();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        desc = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaCadastroCliente = new javax.swing.JTable();
+        textNomeCliente = new javax.swing.JTextField();
+        textSobrenomeCliente = new javax.swing.JTextField();
+        textTelefoneCliente = new javax.swing.JTextField();
+        textPesquisarCliente = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btnSalvarCliente = new javax.swing.JButton();
+        btnPesquisarCliente = new javax.swing.JButton();
+        btnEditarCliente = new javax.swing.JButton();
+        btnExcluirCliente = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -55,20 +96,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tabelaPrecos = new javax.swing.JTable();
         editarPrecoButton = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         comboBoxTelCliente = new javax.swing.JComboBox<>();
         comboBoxFormaPizza = new javax.swing.JComboBox<>();
@@ -88,7 +115,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         btnCalcular = new javax.swing.JButton();
         btnAddPizza = new javax.swing.JButton();
-        btnFimPedido = new javax.swing.JButton();
         btnRemovePizza = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
@@ -97,22 +123,191 @@ public class TelaPrincipal extends javax.swing.JFrame {
         valMinDimArea = new javax.swing.JLabel();
         valMaxDimArea = new javax.swing.JLabel();
         labelPrecoTotal = new javax.swing.JLabel();
+        btnFimPedido = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        btnAtualizarEstado = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tabelaVisualizarPedido = new javax.swing.JTable();
+        cbEstado = new javax.swing.JComboBox<>();
+        lblAlterarEstado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        titulo.setFont(new java.awt.Font("Eras Medium ITC", 1, 48)); // NOI18N
+        titulo.setText("Poli Pizza");
+
+        grr.setEditable(false);
+        grr.setColumns(20);
+        grr.setRows(5);
+        grr.setText("Guilherme Arthur Nunes Menegari - GRR20231010\nLuana Damiane Hurko - GRR 20231016\nThalita Santos - GRR20231007\nVinícius Kataguiri Perrot e Silva - GRR20235364");
+        jScrollPane5.setViewportView(grr);
+
+        desc.setEditable(false);
+        desc.setColumns(20);
+        desc.setLineWrap(true);
+        desc.setRows(5);
+        desc.setText("Trabalho apresentado à disciplina de Linguagem de Programação Orientada a Objetos I, Setor de Educação Profissional e Tecnológica,  Universidade \nFederal do Paraná, como projeto  final da disciplina.\n\nProf. Dr. Rafael Romualdo Wandresen");
+        jScrollPane7.setViewportView(desc);
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoPizza.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 821, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(titulo)
+                        .addGap(303, 303, 303))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(486, 486, 486)
+                        .addComponent(jScrollPane5)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(282, 282, 282))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(titulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Menu Principal", jPanel1);
+
+        tabelaCadastroCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Sobrenome", "Telefone"
+            }
+        ));
+        jScrollPane1.setViewportView(tabelaCadastroCliente);
+
+        textNomeCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textNomeClienteActionPerformed(evt);
+            }
+        });
+
+        textPesquisarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textPesquisarClienteActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Nome");
+
+        jLabel2.setText("Sobrenome");
+
+        jLabel3.setText("Telefone");
+
+        btnSalvarCliente.setText("Salvar");
+        btnSalvarCliente.setToolTipText("Salvar dados do Cliente");
+        btnSalvarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarClienteActionPerformed(evt);
+            }
+        });
+
+        btnPesquisarCliente.setText("Pesquisar");
+        btnPesquisarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarClienteActionPerformed(evt);
+            }
+        });
+
+        btnEditarCliente.setText("Editar");
+        btnEditarCliente.setToolTipText("Habilita a edição do Cliente");
+        btnEditarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarClienteActionPerformed(evt);
+            }
+        });
+
+        btnExcluirCliente.setText("Excluir");
+        btnExcluirCliente.setToolTipText("Excluir o Cliente");
+        btnExcluirCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirClienteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(textPesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnSalvarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textSobrenomeCliente)
+                            .addComponent(textTelefoneCliente)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(textNomeCliente))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEditarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnExcluirCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textPesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisarCliente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textSobrenomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textTelefoneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSalvarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEditarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExcluirCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Cadastrar Cliente", jPanel2);
 
         jLabel5.setText("Nome do sabor");
 
@@ -228,11 +423,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(editarSaborButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(excluirSaborButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 225, Short.MAX_VALUE)
                         .addComponent(pesquisarSabor, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pesquisarSaborButton, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -247,7 +442,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nomeSabor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nomeSabor, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -261,138 +456,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(editarPrecoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(editarSaborButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(excluirSaborButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Cadastrar Sabor", jPanel3);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nome", "Sobrenome", "Telefone"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Nome");
-
-        jLabel2.setText("Sobrenome");
-
-        jLabel3.setText("Telefone");
-
-        jButton1.setText("Salvar");
-        jButton1.setToolTipText("Salvar dados do Cliente");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Pesquisar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Editar");
-        jButton3.setToolTipText("Habilita a edição do Cliente");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("Excluir");
-        jButton4.setToolTipText("Excluir o Cliente");
-        jButton4.setActionCommand("Excluir");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField1))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-
-        jTabbedPane1.addTab("Cadastrar Cliente", jPanel2);
 
         comboBoxTelCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -481,13 +553,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnFimPedido.setText("Finalizar Pedido");
-        btnFimPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFimPedidoActionPerformed(evt);
-            }
-        });
-
         btnRemovePizza.setText("Remover Pizza");
         btnRemovePizza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -505,75 +570,66 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         labelPrecoTotal.setText("R$: 0");
 
+        btnFimPedido.setText("Finalizar Pedido");
+        btnFimPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFimPedidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel13)
-                .addGap(207, 207, 207))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
+                        .addComponent(jLabel7)
+                        .addGap(615, 615, 615)
+                        .addComponent(jLabel13))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel9)
                             .addComponent(jLabel8)
                             .addComponent(jLabel10)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11)
                             .addComponent(labelDimArea)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(btnDimensoes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnArea, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(textFieldDimArea, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(comboBoxSabor2Op, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(comboBoxSabor1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(comboBoxFormaPizza, javax.swing.GroupLayout.Alignment.LEADING, 0, 225, Short.MAX_VALUE)
-                                .addComponent(comboBoxTelCliente, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(btnFimPedido))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(minDimArea, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(valMinDimArea, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                            .addComponent(valMaxDimArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(87, 87, 87)
-                        .addComponent(labelPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(maxDimArea)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRemovePizza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAddPizza, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4))
-                        .addGap(4, 4, 4)))
-                .addContainerGap())
+                                .addComponent(comboBoxTelCliente, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(maxDimArea)
+                            .addComponent(jSeparator3)
+                            .addComponent(jSeparator4)
+                            .addComponent(btnAddPizza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRemovePizza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(textFieldDimArea)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(minDimArea, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(valMinDimArea, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                                    .addComponent(valMaxDimArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(87, 87, 87)
+                                .addComponent(labelPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnFimPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel13)
-                        .addGap(9, 9, 9)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(3, 3, 3))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jLabel7)
@@ -609,33 +665,99 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             .addComponent(valMinDimArea)
                             .addComponent(labelPrecoTotal))
                         .addGap(10, 10, 10)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(maxDimArea, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(valMaxDimArea))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(btnFimPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)
+                        .addComponent(btnAddPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRemovePizza, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAddPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRemovePizza, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                        .addComponent(btnFimPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Realizar Pedido", jPanel4);
+
+        btnAtualizarEstado.setText("Atualizar Estado");
+        btnAtualizarEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarEstadoActionPerformed(evt);
+            }
+        });
+
+        tabelaVisualizarPedido.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Pedido", "Cliente", "Estado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(tabelaVisualizarPedido);
+
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aberto", "A Caminho", "Entregue" }));
+        cbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEstadoActionPerformed(evt);
+            }
+        });
+
+        lblAlterarEstado.setText("Alterar Estado");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 821, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(cbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAtualizarEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+                    .addComponent(lblAlterarEstado))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(lblAlterarEstado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAtualizarEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Visualizar Pedido", jPanel5);
@@ -644,7 +766,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -657,110 +782,521 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void popularComboClientes() {
-        comboBoxTelCliente.removeAllItems();  // Limpa os itens antigos
-        List<Cliente> clientes = GerenciadorDeClientes.getClientes(); // Obtém a lista de clientes
-        // Verifica se a lista de clientes não é null e tem elementos
-        if (clientes != null && clientes.size() > 0) {
-            for (Cliente cliente : clientes) {
-                comboBoxTelCliente.addItem(cliente.getTelefone());  // Adiciona o telefone ao combobox
-            }
-        } else {
-            // Se a lista de clientes estiver vazia ou null, você pode exibir uma mensagem.
-            System.out.println("Nenhum cliente cadastrado!");
-        }
-    }
+    private void btnFimPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFimPedidoActionPerformed
+        String clienteTelefone = comboBoxTelCliente.getSelectedItem() != null ? comboBoxTelCliente.getSelectedItem().toString() : null;
+        Cliente cliente = GerenciadorDeClientes.buscarClientePorTelefone(clienteTelefone);
 
-    private void popularComboSabores() {
-        comboBoxSabor1.removeAllItems();  // Limpa os itens existentes
-        comboBoxSabor2Op.removeAllItems();  // Limpa os itens existentes
-        List<Sabor> sabores = GerenciadorSabores.listarSabores(); // Obtém a lista de sabores
-        for (Sabor sabor : sabores) {
-            comboBoxSabor1.addItem(sabor.getNome());  // Adiciona o nome do sabor ao combobox1
-            comboBoxSabor2Op.addItem(sabor.getNome());  // Adiciona o nome do sabor ao combobox2
-        }
-    }
-
-    private void popularComboFormas() {
-        comboBoxFormaPizza.removeAllItems();  // Limpa os itens existentes
-        comboBoxFormaPizza.addItem("Circulo");
-        comboBoxFormaPizza.addItem("Quadrado");
-        comboBoxFormaPizza.addItem("Triangulo");
-    }
-
-    private boolean validarDimensao(double valor, String forma) {
-        if (modoInsercaoLado) {  // Validar pelo lado
-            switch (forma) {
-                case "Circulo" -> {
-                    return valor >= 10 && valor <= 40; // Lado do Círculo
-                }
-                case "Quadrado" -> {
-                    return valor >= 10 && valor <= 40; // Lado do Quadrado
-                }
-                case "Triangulo" -> {
-                    return valor >= 20 && valor <= 60; // Lado do Triângulo
-                }
-            }
-        } else { // Validar pela área
-            switch (forma) {
-                case "Circulo" -> {
-                    return valor >= 300 && valor <= 2000; // Área do Círculo
-                }
-                case "Quadrado" -> {
-                    return valor >= 100 && valor <= 1600; // Área do Quadrado
-                }
-                case "Triangulo" -> {
-                    return valor >= 173 && valor <= 900; // Área do Triângulo
-                }
-            }
-        }
-        return false;
-    }
-
-    private void atualizarLimitesDimensao(String modo) {
-        String forma;
-
-        try {
-            forma = comboBoxFormaPizza.getSelectedItem().toString();
-        } catch (NullPointerException e) {
-            System.out.println("ComboBox da forma da pizza inicializou com valor nulo, por algum motivo :|");
-            System.out.println("Excecao: " + e);
+        if (cliente == null) {
+            JOptionPane.showMessageDialog(this, "Cliente não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (modo.equals("lado")) { // Quando for inserção de lado (ou raio)
+        // Cria o pedido e adiciona as pizzas
+        Pedido pedido = new Pedido(cliente);
+        
+        // Checa se ha ao menos uma pizza no pedido
+        if (tabelaPizzasPedido.getRowCount() < 1) {
+            JOptionPane.showMessageDialog(this, "Adicione ao menos uma pizza ao pedido.", "Atenção", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Adiciona as pizzas da tabela ao pedido
+        for (int i = 0; i < tabelaPizzasPedido.getRowCount(); i++) {
+            String forma = tabelaPizzasPedido.getValueAt(i, 0).toString();
+            String sabor1 = tabelaPizzasPedido.getValueAt(i, 1).toString();
+            String sabor2 = tabelaPizzasPedido.getValueAt(i, 2) != null ? tabelaPizzasPedido.getValueAt(i, 2).toString() : null;
+            double tamanho = converterTamanhoPizza(textFieldDimArea.getText());
+
+            Forma formaObj = null;
             switch (forma) {
-                case "Circulo" -> {
-                    valMinDimArea.setText("10"); // Valor mínimo para o raio
-                    valMaxDimArea.setText("40"); // Valor máximo para o raio
-                }
-                case "Quadrado" -> {
-                    valMinDimArea.setText("10"); // Valor mínimo para o lado
-                    valMaxDimArea.setText("40"); // Valor máximo para o lado
-                }
-                case "Triangulo" -> {
-                    valMinDimArea.setText("20"); // Valor mínimo para o lado
-                    valMaxDimArea.setText("60"); // Valor máximo para o lado
-                }
+                case "Circulo" ->
+                    formaObj = new Circulo(tamanho);
+                case "Quadrado" ->
+                    formaObj = new Quadrado(tamanho);
+                case "Triangulo" ->
+                    formaObj = new Triangulo(tamanho);
             }
-        } else { // Quando for inserção de área
-            switch (forma) {
-                case "Circulo" -> {
-                    valMinDimArea.setText("300"); // Valor mínimo para a área
-                    valMaxDimArea.setText("2000"); // Valor máximo para a área
-                }
-                case "Quadrado" -> {
-                    valMinDimArea.setText("100"); // Valor mínimo para a área
-                    valMaxDimArea.setText("1600"); // Valor máximo para a área
-                }
-                case "Triangulo" -> {
-                    valMinDimArea.setText("173"); // Valor mínimo para a área
-                    valMaxDimArea.setText("900"); // Valor máximo para a área
-                }
+
+            Sabor sabor1Obj = GerenciadorSabores.encontrarPorNome(sabor1);
+            Sabor sabor2Obj = GerenciadorSabores.encontrarPorNome(sabor2);
+
+            // Cria a pizza com a forma e os sabores
+            List<Sabor> sabores = new ArrayList<>();
+            sabores.add(sabor1Obj); // Adiciona o primeiro sabor
+
+            if (sabor2Obj != null) {
+                sabores.add(sabor2Obj); // Adiciona o segundo sabor, se existir
             }
+
+            Pizza pizza = new Pizza(formaObj, sabores);
+            pedido.adicionarPizza(pizza);
+        }
+
+        // Define o estado do pedido e adiciona à lista de pedidos
+        pedido.setEstado("Aberto");
+        GerenciadorDePedidos.adicionarPedido(pedido);
+        DefaultTableModel modeloListaPedidos = (DefaultTableModel) tabelaVisualizarPedido.getModel();
+        modeloListaPedidos.addRow(new Object[]{GerenciadorDePedidos.listarPedidos().indexOf(pedido) + 1, pedido.getCliente().getNome(), pedido.getEstado()});
+
+        // Exibe uma mensagem informando que o pedido foi finalizado
+        JOptionPane.showMessageDialog(this, "Pedido finalizado com sucesso!");
+
+        // Limpa os campos da tela
+        comboBoxTelCliente.setSelectedIndex(-1);
+        comboBoxSabor1.setSelectedIndex(-1);
+        comboBoxSabor2Op.setSelectedIndex(-1);
+        comboBoxFormaPizza.setSelectedIndex(-1);
+        textFieldDimArea.setText("");
+        // Reseta a lista de pizzas
+        DefaultTableModel modeloPizzas = (DefaultTableModel) tabelaPizzasPedido.getModel();
+        modeloPizzas.setRowCount(0);
+    }//GEN-LAST:event_btnFimPedidoActionPerformed
+
+    private void btnRemovePizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePizzaActionPerformed
+        // TODO add your handling code here:
+        // Obtém a linha selecionada na tabela
+        int selectedRow = tabelaPizzasPedido.getSelectedRow();
+
+        if (selectedRow != -1) {
+            // Remove a linha da tabela
+            DefaultTableModel modelo = (DefaultTableModel) tabelaPizzasPedido.getModel();
+            modelo.removeRow(selectedRow);
+        } else {
+            // Caso não haja linha selecionada, exibe uma mensagem de erro
+            JOptionPane.showMessageDialog(this, "Selecione uma pizza para remover.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRemovePizzaActionPerformed
+
+    private double converterTamanhoPizza(String tamanhoString) {
+        try {
+            return Double.parseDouble(tamanhoString);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "O tamanho precisa ser um número!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 
+    private void btnAddPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPizzaActionPerformed
+        // Obtém as escolhas do usuário
+        String formaSelecionada = comboBoxFormaPizza.getSelectedItem().toString();
+        String sabor1 = comboBoxSabor1.getSelectedItem().toString();
+        String sabor2 = comboBoxSabor2Op.getSelectedItem() != null ? comboBoxSabor2Op.getSelectedItem().toString() : null;
+
+        double tamanho = converterTamanhoPizza(textFieldDimArea.getText());
+        if (tamanho == -1) {
+            return;
+        }
+
+        // Valida a dimensão (lado ou área)
+        if (!validarDimensao(tamanho, formaSelecionada)) {
+            JOptionPane.showMessageDialog(this, "Valor de dimensão inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Criação da forma concreta (Círculo, Quadrado ou Triângulo)
+        Forma forma = null;
+        switch (formaSelecionada) {
+            case "Circulo" -> {
+                if (modoInsercaoLado) {
+                    forma = new Circulo(tamanho);  // Cria o Círculo com o lado (raio)
+                } else {
+                    forma = Circulo.daArea(tamanho);  // Cria o Círculo com a área
+                }
+            }
+            case "Quadrado" -> {
+                if (modoInsercaoLado) {
+                    forma = new Quadrado(tamanho);  // Cria o Quadrado com o lado
+                } else {
+                    forma = Quadrado.daArea(tamanho);  // Cria o Quadrado com a área
+                }
+            }
+            case "Triangulo" -> {
+                if (modoInsercaoLado) {
+                    forma = new Triangulo(tamanho);  // Cria o Triângulo com o lado
+                } else {
+                    forma = Triangulo.daArea(tamanho);  // Cria o Triângulo com a área
+                }
+            }
+            default -> {
+                JOptionPane.showMessageDialog(this, "Forma inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        // Criação dos sabores e obtenção dos preços
+        Sabor sabor1Obj = GerenciadorSabores.encontrarPorNome(sabor1);
+        Sabor sabor2Obj = GerenciadorSabores.encontrarPorNome(sabor2);
+
+        // Criação da lista de sabores (um ou dois sabores)
+        List<Sabor> sabores = new ArrayList<>();
+        sabores.add(sabor1Obj);  // Adiciona o primeiro sabor
+
+        // Se houver o segundo sabor, adiciona à lista (verifica se sabor2Obj não é null)
+        if (sabor2Obj != null) {
+            sabores.add(sabor2Obj);  // Adiciona o segundo sabor (se houver)
+        }
+
+        // Criação da pizza com a forma e os sabores
+        Pizza pizza = new Pizza(forma, sabores);
+
+        // Obtendo o preço de cada sabor
+        double precoSabor1 = sabor1Obj.getPreco(); // Preço do primeiro sabor
+        double precoSabor2 = (sabor2Obj != null) ? sabor2Obj.getPreco() : 0; // Preço do segundo sabor, 0 se não houver
+
+        // Adiciona a pizza à lista de pizzas no pedido
+        DefaultTableModel modelo = (DefaultTableModel) tabelaPizzasPedido.getModel();
+        modelo.addRow(new Object[]{
+            formaSelecionada,
+            sabor1,
+            sabor2,
+            pizza.calcularArea(),
+            pizza.calcularPreco(precoSabor1, precoSabor2) // Calcula o preço com base nos preços dos sabores
+        });
+    }//GEN-LAST:event_btnAddPizzaActionPerformed
+
+    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        // Obtém as escolhas do usuário
+        String formaSelecionada = comboBoxFormaPizza.getSelectedItem().toString();
+        String sabor1 = comboBoxSabor1.getSelectedItem().toString();
+        String sabor2 = comboBoxSabor2Op.getSelectedItem() != null ? comboBoxSabor2Op.getSelectedItem().toString() : null;
+
+        double tamanho = converterTamanhoPizza(textFieldDimArea.getText());
+        if (tamanho == -1) {
+            return;
+        }
+
+        // Valida a dimensão (lado ou área)
+        if (!validarDimensao(tamanho, formaSelecionada)) {
+            JOptionPane.showMessageDialog(this, "Valor de dimensão inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Criação da forma concreta (Círculo, Quadrado ou Triângulo)
+        Forma forma;
+        switch (formaSelecionada) {
+            case "Circulo" -> {
+                if (modoInsercaoLado) {
+                    forma = new Circulo(tamanho);  // Cria o Círculo com o lado (raio)
+                } else {
+                    forma = Circulo.daArea(tamanho);  // Cria o Círculo com a área
+                }
+            }
+            case "Quadrado" -> {
+                if (modoInsercaoLado) {
+                    forma = new Quadrado(tamanho);  // Cria o Quadrado com o lado
+                } else {
+                    forma = Quadrado.daArea(tamanho);  // Cria o Quadrado com a área
+                }
+            }
+            case "Triangulo" -> {
+                if (modoInsercaoLado) {
+                    forma = new Triangulo(tamanho);  // Cria o Triângulo com o lado
+                } else {
+                    forma = Triangulo.daArea(tamanho);  // Cria o Triângulo com a área
+                }
+            }
+            default -> {
+                JOptionPane.showMessageDialog(this, "Forma inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        // Criação dos sabores e obtenção dos preços
+        Sabor sabor1Obj = GerenciadorSabores.encontrarPorNome(sabor1);
+        Sabor sabor2Obj = GerenciadorSabores.encontrarPorNome(sabor2);
+
+        // Criação da lista de sabores (um ou dois sabores)
+        List<Sabor> sabores = new ArrayList<>();
+        sabores.add(sabor1Obj);  // Adiciona o primeiro sabor
+
+        // Se houver o segundo sabor, adiciona à lista (verifica se sabor2Obj não é null)
+        if (sabor2Obj != null) {
+            sabores.add(sabor2Obj);  // Adiciona o segundo sabor (se houver)
+        }
+
+        // Criação da pizza com a forma e os sabores
+        Pizza pizza = new Pizza(forma, sabores);
+
+        // Obtendo o preço de cada sabor
+        double precoSabor1 = sabor1Obj.getPreco(); // Preço do primeiro sabor
+        double precoSabor2 = (sabor2Obj != null) ? sabor2Obj.getPreco() : 0; // Preço do segundo sabor, 0 se não houver
+
+        // Calcula o preço da pizza
+        double precoTotal = pizza.calcularPreco(precoSabor1, precoSabor2);
+
+        // Exibe o preço total
+        labelPrecoTotal.setText("R$ " + precoTotal);
+    }//GEN-LAST:event_btnCalcularActionPerformed
+
+    private void textFieldDimAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDimAreaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldDimAreaActionPerformed
+
+    private void btnAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAreaActionPerformed
+        modoInsercaoLado = false; // Altera para modo de área
+        labelDimArea.setText("Área:");  // Atualiza o texto para "Área"
+        atualizarLimitesDimensao("area");
+    }//GEN-LAST:event_btnAreaActionPerformed
+
+    private void btnDimensoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDimensoesActionPerformed
+        // TODO add your handling code here:
+        modoInsercaoLado = true; // Altera para modo de lado (ou raio)
+        labelDimArea.setText("Lado:");  // Atualiza o texto para "Lado"
+        atualizarLimitesDimensao("lado");
+        labelDimArea.setText("Dimensão:");
+    }//GEN-LAST:event_btnDimensoesActionPerformed
+
+    private void comboBoxSabor2OpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSabor2OpActionPerformed
+
+    }//GEN-LAST:event_comboBoxSabor2OpActionPerformed
+
+    private void comboBoxSabor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSabor1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxSabor1ActionPerformed
+
+    private void comboBoxFormaPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxFormaPizzaActionPerformed
+        if (modoInsercaoLado) {
+            atualizarLimitesDimensao("lado");
+        } else {
+            atualizarLimitesDimensao("area");
+        }
+    }//GEN-LAST:event_comboBoxFormaPizzaActionPerformed
+
+    private void comboBoxTelClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTelClienteActionPerformed
+        // TODO add your handling code here:
+        //popularComboClientes();
+    }//GEN-LAST:event_comboBoxTelClienteActionPerformed
+
+    private void btnExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirClienteActionPerformed
+        // TODO add your handling code here:
+        // Obtém a linha selecionada na tabela
+        int selectedRow = tabelaCadastroCliente.getSelectedRow();
+
+        // Verifica se uma linha foi selecionada
+        if (selectedRow != -1) {
+            // Confirmação de exclusão
+            int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir este cliente?",
+                    "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Remove o cliente da tabela
+                DefaultTableModel modelo = (DefaultTableModel) tabelaCadastroCliente.getModel();
+                modelo.removeRow(selectedRow); // Remove a linha selecionada
+
+                // Se você tiver uma lista de clientes, também remova da lista
+                // Exemplo (supondo que 'clientes' seja sua lista de clientes):
+                // clientes.remove(selectedRow);
+                JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um cliente para excluir.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnExcluirClienteActionPerformed
+
+    private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
+        // TODO add your handling code here:
+        // Obtém a linha selecionada na tabela
+        int selectedRow = tabelaCadastroCliente.getSelectedRow();
+
+        // Verifica se uma linha foi selecionada
+        if (selectedRow != -1) {
+            // Carrega os dados do cliente na linha selecionada
+            DefaultTableModel modelo = (DefaultTableModel) tabelaCadastroCliente.getModel();
+
+            // Preenche os campos de texto com os dados do cliente selecionado
+            textNomeCliente.setText(modelo.getValueAt(selectedRow, 0).toString()); // Nome
+            textSobrenomeCliente.setText(modelo.getValueAt(selectedRow, 1).toString()); // Sobrenome
+            textTelefoneCliente.setText(modelo.getValueAt(selectedRow, 2).toString()); // Telefone
+
+            // Agora o botão de "Salvar" irá atualizar os dados do cliente
+            btnSalvarCliente.setText("Atualizar");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um cliente para editar.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEditarClienteActionPerformed
+
+    private void btnPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClienteActionPerformed
+        String searchText = textPesquisarCliente.getText().toLowerCase(); // Converte para minúsculas para facilitar a busca
+        DefaultTableModel modelo = (DefaultTableModel) tabelaCadastroCliente.getModel();
+
+        // Se o campo de pesquisa estiver vazio, exibe todos os clientes (limpa a seleção)
+        if (searchText.isEmpty()) {
+            tabelaCadastroCliente.clearSelection(); // Limpa qualquer seleção de linhas
+            return;
+        }
+
+        // Remove a seleção de qualquer linha antes de começar a pesquisa
+        tabelaCadastroCliente.clearSelection();
+
+        // Percorre todas as linhas da tabela e encontra as que correspondem ao texto de pesquisa
+        boolean existe = false; // Ver se existe
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            String nome = modelo.getValueAt(i, 0).toString().toLowerCase(); // Nome
+            String sobrenome = modelo.getValueAt(i, 1).toString().toLowerCase(); // Sobrenome
+            String telefone = modelo.getValueAt(i, 2).toString().toLowerCase(); // Telefone
+
+            // Verifica se algum campo contém o texto da pesquisa
+            if (nome.contains(searchText) || sobrenome.contains(searchText) || telefone.contains(searchText)) {
+                tabelaCadastroCliente.addRowSelectionInterval(i, i); // Seleciona a linha correspondente
+                existe = true;
+            }
+        }
+
+        // Caso não tenha encontrado nenhum cliente
+        if (!existe) {
+            JOptionPane.showMessageDialog(this, "Nenhum cliente encontrado!", "Resultado da Pesquisa", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnPesquisarClienteActionPerformed
+
+    private void btnSalvarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarClienteActionPerformed
+
+        String nome = textNomeCliente.getText();
+        String sobrenome = textSobrenomeCliente.getText();
+        String telefone = textTelefoneCliente.getText();
+
+        if (nome.isEmpty() || sobrenome.isEmpty() || telefone.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Verifica se o telefone está no formato correto (exatamente 11 dígitos)
+        try {
+            Cliente.validarTelefone(telefone); // Chama a validação diretamente na classe Cliente
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (btnSalvarCliente.getText().equals("Salvar")) {
+            // Cria um novo cliente e adiciona à tabela
+            Cliente novoCliente = new Cliente(nome, sobrenome, telefone);
+            DefaultTableModel modelo = (DefaultTableModel) tabelaCadastroCliente.getModel();
+            modelo.addRow(new Object[]{novoCliente.getNome(), novoCliente.getSobrenome(), novoCliente.getTelefone()});
+
+            // Adicionar telefone do cliente na combo box de realizar pedido
+            comboBoxTelCliente.addItem(novoCliente.getTelefone());
+
+            // Adicionar cliente no gerenciador de clientes
+            GerenciadorDeClientes.adicionarCliente(novoCliente);
+
+            JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!");
+        } else if (btnSalvarCliente.getText().equals("Atualizar")) {
+            // Atualiza os dados do cliente
+            int selectedRow = tabelaCadastroCliente.getSelectedRow();
+
+            // Atualiza os dados no gerenciador
+            DefaultTableModel modelo = (DefaultTableModel) tabelaCadastroCliente.getModel();
+            GerenciadorDeClientes.editarCliente(modelo.getValueAt(selectedRow, 0).toString(), nome, sobrenome, telefone);
+
+            // Atualiza os dados na tabela
+            modelo.setValueAt(nome, selectedRow, 0);  // Atualiza o nome
+            modelo.setValueAt(sobrenome, selectedRow, 1);  // Atualiza o sobrenome
+            modelo.setValueAt(telefone, selectedRow, 2);  // Atualiza o telefone
+
+            JOptionPane.showMessageDialog(this, "Cliente atualizado com sucesso!");
+
+            // Muda o botão de volta para "Salvar" para futuras inserções
+            btnSalvarCliente.setText("Salvar");
+        }
+
+        // Limpa os campos após salvar ou atualizar
+        textNomeCliente.setText("");
+        textSobrenomeCliente.setText("");
+        textTelefoneCliente.setText("");
+    }//GEN-LAST:event_btnSalvarClienteActionPerformed
+
+    private void textPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPesquisarClienteActionPerformed
+        // TODO add your handling code here:
+        // Obtém a linha selecionada na tabela
+        int selectedRow = tabelaCadastroCliente.getSelectedRow();
+
+        // Verifica se uma linha foi selecionada
+        if (selectedRow != -1) {
+            // Confirmação de exclusão
+            int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir este cliente?",
+                    "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Remove o cliente da tabela
+                DefaultTableModel modelo = (DefaultTableModel) tabelaCadastroCliente.getModel();
+                modelo.removeRow(selectedRow); // Remove a linha selecionada
+
+                // Se você tiver uma lista de clientes, também remova da lista
+                // Exemplo (supondo que 'clientes' seja sua lista de clientes):
+                // clientes.remove(selectedRow);
+                JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um cliente para excluir.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_textPesquisarClienteActionPerformed
+
+    private void textNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomeClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textNomeClienteActionPerformed
+
+    /* private void btnAtualizarEstado.addActionListener(new ActionListener()){
+        @Override
+        public void actionPerformed(ActionEvent e){
+        int linhaSelecionada = tabelaVisualizarPedido.getSelectedRow();
+        if(linhaSelecionada != -1){
+            String novoEstado = (String)cbEstado.getSelectedItem();
+            pedidos.get(linhaSelecionada).setEstado(novoEstado);
+            alterarEstadoPedido();
+        }
+    }
+    }*/
+    private void cbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbEstadoActionPerformed
+
+    private void btnAtualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAtualizarEstadoActionPerformed
+
+    private void editarPrecoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarPrecoButtonActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) tabelaPrecos.getModel();
+        String tipoSelecionado;
+
+        // Checar se usuario selecionou um tipo
+        try {
+            tipoSelecionado = modelo.getValueAt(tabelaPrecos.getSelectedRow(), 0).toString();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Selecione um tipo para mudar o preço.", "Erro", 0);
+            return;
+        }
+
+        // Checar se usuario selecionou mais de um tipo
+        if (tabelaPrecos.getSelectedRowCount() > 1) {
+            JOptionPane.showMessageDialog(this, "Selecione apenas um tipo.", "Erro", 0);
+            return;
+        }
+
+        double novoPreco;
+        try {
+            novoPreco = Double.parseDouble(JOptionPane.showInputDialog("Escolha o novo preço para o tipo " + tipoSelecionado + "."));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "O novo preço deve ser um número.", "Erro", 0);
+            return;
+        }
+
+        // Mudar o preco
+        switch (tipoSelecionado) {
+            case "Simples" -> {
+                SaborSimples.setPrecoSimples(novoPreco);
+            }
+            case "Especial" -> {
+                SaborEspecial.setPrecoEspecial(novoPreco);
+            }
+            case "Premium" -> {
+                SaborPremium.setPrecoPremium(novoPreco);
+            }
+        }
+
+        // Atualizar na tabela
+        modelo.setValueAt(novoPreco, tabelaPrecos.getSelectedRow(), 1);
+    }//GEN-LAST:event_editarPrecoButtonActionPerformed
 
     private void pesquisarSaborButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarSaborButtonActionPerformed
         tabelaSabores.clearSelection();
@@ -933,486 +1469,111 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeSaborActionPerformed
 
-    private void editarPrecoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarPrecoButtonActionPerformed
-        DefaultTableModel modelo = (DefaultTableModel) tabelaPrecos.getModel();
-        String tipoSelecionado;
-
-        // Checar se usuario selecionou um tipo
-        try {
-            tipoSelecionado = modelo.getValueAt(tabelaPrecos.getSelectedRow(), 0).toString();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(this, "Selecione um tipo para mudar o preço.", "Erro", 0);
-            return;
-        }
-
-        // Checar se usuario selecionou mais de um tipo
-        if (tabelaPrecos.getSelectedRowCount() > 1) {
-            JOptionPane.showMessageDialog(this, "Selecione apenas um tipo.", "Erro", 0);
-            return;
-        }
-
-        double novoPreco;
-        try {
-            novoPreco = Double.parseDouble(JOptionPane.showInputDialog("Escolha o novo preço para o tipo " + tipoSelecionado + "."));
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "O novo preço deve ser um número.", "Erro", 0);
-            return;
-        }
-
-        // Mudar o preco
-        switch (tipoSelecionado) {
-            case "Simples" -> {
-                SaborSimples.setPrecoSimples(novoPreco);
+    private void popularComboClientes() {
+        comboBoxTelCliente.removeAllItems();  // Limpa os itens antigos
+        List<Cliente> clientes = GerenciadorDeClientes.getClientes(); // Obtém a lista de clientes
+        // Verifica se a lista de clientes não é null e tem elementos
+        if (clientes != null && clientes.size() > 0) {
+            for (Cliente cliente : clientes) {
+                comboBoxTelCliente.addItem(cliente.getTelefone());  // Adiciona o telefone ao combobox
             }
-            case "Especial" -> {
-                SaborEspecial.setPrecoEspecial(novoPreco);
-            }
-            case "Premium" -> {
-                SaborPremium.setPrecoPremium(novoPreco);
-            }
-        }
-
-        // Atualizar na tabela
-        modelo.setValueAt(novoPreco, tabelaPrecos.getSelectedRow(), 1);
-
-    }//GEN-LAST:event_editarPrecoButtonActionPerformed
-
-
-    private void comboBoxSabor2OpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSabor2OpActionPerformed
-
-    }//GEN-LAST:event_comboBoxSabor2OpActionPerformed
-
-    private void btnDimensoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDimensoesActionPerformed
-        // TODO add your handling code here:
-        modoInsercaoLado = true; // Altera para modo de lado (ou raio)
-        labelDimArea.setText("Lado:");  // Atualiza o texto para "Lado"
-        atualizarLimitesDimensao("lado");
-        labelDimArea.setText("Dimensão:");
-    }//GEN-LAST:event_btnDimensoesActionPerformed
-
-    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
-        // TODO add your handling code here:
-        // Obtém as escolhas do usuário
-        String formaSelecionada = comboBoxFormaPizza.getSelectedItem().toString();
-        String sabor1 = comboBoxSabor1.getSelectedItem().toString();
-        String sabor2 = comboBoxSabor2Op.getSelectedItem() != null ? comboBoxSabor2Op.getSelectedItem().toString() : null;
-
-        double tamanho = Double.parseDouble(textFieldDimArea.getText()); // Obtém o tamanho informado
-
-        // Valida a dimensão (lado ou área)
-        if (!validarDimensao(tamanho, formaSelecionada)) {
-            JOptionPane.showMessageDialog(this, "Valor de dimensão inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Criação da forma concreta (Círculo, Quadrado ou Triângulo)
-        Forma forma;
-        switch (formaSelecionada) {
-            case "Circulo" -> {
-                if (modoInsercaoLado) {
-                    forma = new Circulo(tamanho);  // Cria o Círculo com o lado (raio)
-                } else {
-                    forma = Circulo.daArea(tamanho);  // Cria o Círculo com a área
-                }
-            }
-            case "Quadrado" -> {
-                if (modoInsercaoLado) {
-                    forma = new Quadrado(tamanho);  // Cria o Quadrado com o lado
-                } else {
-                    forma = Quadrado.daArea(tamanho);  // Cria o Quadrado com a área
-                }
-            }
-            case "Triangulo" -> {
-                if (modoInsercaoLado) {
-                    forma = new Triangulo(tamanho);  // Cria o Triângulo com o lado
-                } else {
-                    forma = Triangulo.daArea(tamanho);  // Cria o Triângulo com a área
-                }
-            }
-            default -> {
-                JOptionPane.showMessageDialog(this, "Forma inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        }
-
-        // Criação dos sabores e obtenção dos preços
-        Sabor sabor1Obj = GerenciadorSabores.encontrarPorNome(sabor1);
-        Sabor sabor2Obj = GerenciadorSabores.encontrarPorNome(sabor2);
-
-        // Criação da lista de sabores (um ou dois sabores)
-        List<Sabor> sabores = new ArrayList<>();
-        sabores.add(sabor1Obj);  // Adiciona o primeiro sabor
-
-        // Se houver o segundo sabor, adiciona à lista (verifica se sabor2Obj não é null)
-        if (sabor2Obj != null) {
-            sabores.add(sabor2Obj);  // Adiciona o segundo sabor (se houver)
-        }
-
-        // Criação da pizza com a forma e os sabores
-        Pizza pizza = new Pizza(forma, sabores);
-
-        // Obtendo o preço de cada sabor
-        double precoSabor1 = sabor1Obj.getPreco(); // Preço do primeiro sabor
-        double precoSabor2 = (sabor2Obj != null) ? sabor2Obj.getPreco() : 0; // Preço do segundo sabor, 0 se não houver
-
-        // Calcula o preço da pizza
-        double precoTotal = pizza.calcularPreco(precoSabor1, precoSabor2);
-
-        // Exibe o preço total
-        labelPrecoTotal.setText("R$ " + precoTotal);
-    }//GEN-LAST:event_btnCalcularActionPerformed
-
-    private void btnAddPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPizzaActionPerformed
-        // TODO add your handling code here:
-        // Obtém as escolhas do usuário
-        String formaSelecionada = comboBoxFormaPizza.getSelectedItem().toString();
-        String sabor1 = comboBoxSabor1.getSelectedItem().toString();
-        String sabor2 = comboBoxSabor2Op.getSelectedItem() != null ? comboBoxSabor2Op.getSelectedItem().toString() : null;
-
-        double tamanho = Double.parseDouble(textFieldDimArea.getText()); // Obtém o tamanho informado
-
-        // Valida a dimensão (lado ou área)
-        if (!validarDimensao(tamanho, formaSelecionada)) {
-            JOptionPane.showMessageDialog(this, "Valor de dimensão inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Criação da forma concreta (Círculo, Quadrado ou Triângulo)
-        Forma forma = null;
-        switch (formaSelecionada) {
-            case "Circulo" -> {
-                if (modoInsercaoLado) {
-                    forma = new Circulo(tamanho);  // Cria o Círculo com o lado (raio)
-                } else {
-                    forma = Circulo.daArea(tamanho);  // Cria o Círculo com a área
-                }
-            }
-            case "Quadrado" -> {
-                if (modoInsercaoLado) {
-                    forma = new Quadrado(tamanho);  // Cria o Quadrado com o lado
-                } else {
-                    forma = Quadrado.daArea(tamanho);  // Cria o Quadrado com a área
-                }
-            }
-            case "Triangulo" -> {
-                if (modoInsercaoLado) {
-                    forma = new Triangulo(tamanho);  // Cria o Triângulo com o lado
-                } else {
-                    forma = Triangulo.daArea(tamanho);  // Cria o Triângulo com a área
-                }
-            }
-            default -> {
-                JOptionPane.showMessageDialog(this, "Forma inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        }
-
-        // Criação dos sabores e obtenção dos preços
-        Sabor sabor1Obj = GerenciadorSabores.encontrarPorNome(sabor1);
-        Sabor sabor2Obj = GerenciadorSabores.encontrarPorNome(sabor2);
-
-        // Criação da lista de sabores (um ou dois sabores)
-        List<Sabor> sabores = new ArrayList<>();
-        sabores.add(sabor1Obj);  // Adiciona o primeiro sabor
-
-        // Se houver o segundo sabor, adiciona à lista (verifica se sabor2Obj não é null)
-        if (sabor2Obj != null) {
-            sabores.add(sabor2Obj);  // Adiciona o segundo sabor (se houver)
-        }
-
-        // Criação da pizza com a forma e os sabores
-        Pizza pizza = new Pizza(forma, sabores);
-
-        // Obtendo o preço de cada sabor
-        double precoSabor1 = sabor1Obj.getPreco(); // Preço do primeiro sabor
-        double precoSabor2 = (sabor2Obj != null) ? sabor2Obj.getPreco() : 0; // Preço do segundo sabor, 0 se não houver
-
-        // Adiciona a pizza à lista de pizzas no pedido
-        DefaultTableModel modelo = (DefaultTableModel) tabelaPizzasPedido.getModel();
-        modelo.addRow(new Object[]{
-            formaSelecionada,
-            sabor1,
-            sabor2,
-            pizza.calcularArea(),
-            pizza.calcularPreco(precoSabor1, precoSabor2) // Calcula o preço com base nos preços dos sabores
-        });
-    }//GEN-LAST:event_btnAddPizzaActionPerformed
-
-    private void btnRemovePizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePizzaActionPerformed
-        // TODO add your handling code here:
-        // Obtém a linha selecionada na tabela
-        int selectedRow = tabelaPizzasPedido.getSelectedRow();
-
-        if (selectedRow != -1) {
-            // Remove a linha da tabela
-            DefaultTableModel modelo = (DefaultTableModel) tabelaPizzasPedido.getModel();
-            modelo.removeRow(selectedRow);
         } else {
-            // Caso não haja linha selecionada, exibe uma mensagem de erro
-            JOptionPane.showMessageDialog(this, "Selecione uma pizza para remover.", "Erro", JOptionPane.ERROR_MESSAGE);
+            // Se a lista de clientes estiver vazia ou null, você pode exibir uma mensagem.
+            System.out.println("Nenhum cliente cadastrado!");
         }
+    }
 
-
-    }//GEN-LAST:event_btnRemovePizzaActionPerformed
-
-    private void btnFimPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFimPedidoActionPerformed
-        String clienteTelefone = comboBoxTelCliente.getSelectedItem().toString();
-        Cliente cliente = GerenciadorDeClientes.buscarClientePorTelefone(clienteTelefone);
-
-        if (cliente == null) {
-            JOptionPane.showMessageDialog(this, "Cliente não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
+    private void popularComboSabores() {
+        comboBoxSabor1.removeAllItems();  // Limpa os itens existentes
+        comboBoxSabor2Op.removeAllItems();  // Limpa os itens existentes
+        List<Sabor> sabores = GerenciadorSabores.listarSabores(); // Obtém a lista de sabores
+        for (Sabor sabor : sabores) {
+            comboBoxSabor1.addItem(sabor.getNome());  // Adiciona o nome do sabor ao combobox1
+            comboBoxSabor2Op.addItem(sabor.getNome());  // Adiciona o nome do sabor ao combobox2
         }
+    }
 
-        // Cria o pedido e adiciona as pizzas
-        Pedido pedido = new Pedido(cliente);
+    private void popularComboFormas() {
+        comboBoxFormaPizza.removeAllItems();  // Limpa os itens existentes
+        comboBoxFormaPizza.addItem("Circulo");
+        comboBoxFormaPizza.addItem("Quadrado");
+        comboBoxFormaPizza.addItem("Triangulo");
+    }
 
-        // Adiciona as pizzas da tabela ao pedido
-        for (int i = 0; i < tabelaPizzasPedido.getRowCount(); i++) {
-            String forma = tabelaPizzasPedido.getValueAt(i, 0).toString();
-            String sabor1 = tabelaPizzasPedido.getValueAt(i, 1).toString();
-            String sabor2 = tabelaPizzasPedido.getValueAt(i, 2) != null ? tabelaPizzasPedido.getValueAt(i, 2).toString() : null;
-            double tamanho = Double.parseDouble(tabelaPizzasPedido.getValueAt(i, 3).toString());
-
-            Forma formaObj = null;
+    private boolean validarDimensao(double valor, String forma) {
+        if (modoInsercaoLado) {  // Validar pelo lado
             switch (forma) {
-                case "Circulo" ->
-                    formaObj = new Circulo(tamanho);
-                case "Quadrado" ->
-                    formaObj = new Quadrado(tamanho);
-                case "Triangulo" ->
-                    formaObj = new Triangulo(tamanho);
+                case "Circulo" -> {
+                    return valor >= 10 && valor <= 40; // Lado do Círculo
+                }
+                case "Quadrado" -> {
+                    return valor >= 10 && valor <= 40; // Lado do Quadrado
+                }
+                case "Triangulo" -> {
+                    return valor >= 20 && valor <= 60; // Lado do Triângulo
+                }
             }
-
-            Sabor sabor1Obj = GerenciadorSabores.encontrarPorNome(sabor1);
-            Sabor sabor2Obj = GerenciadorSabores.encontrarPorNome(sabor2);
-
-            // Cria a pizza com a forma e os sabores
-            List<Sabor> sabores = new ArrayList<>();
-            sabores.add(sabor1Obj); // Adiciona o primeiro sabor
-
-            if (sabor2Obj != null) {
-                sabores.add(sabor2Obj); // Adiciona o segundo sabor, se existir
-            }
-
-            Pizza pizza = new Pizza(formaObj, sabores);
-            pedido.adicionarPizza(pizza);
-        }
-
-        // Define o estado do pedido e adiciona à lista de pedidos
-        pedido.setEstado("A Caminho");
-        GerenciadorDePedidos.adicionarPedido(pedido);
-
-        // Exibe uma mensagem informando que o pedido foi finalizado
-        JOptionPane.showMessageDialog(this, "Pedido finalizado com sucesso!");
-        
-        System.out.printf("""
-                          Cliente: %s
-                          """, GerenciadorDePedidos.listarPedidos().get(0).getCliente().getNome());
-
-        // Limpa os campos da tela
-        comboBoxTelCliente.setSelectedIndex(-1);
-        comboBoxSabor1.setSelectedIndex(-1);
-        comboBoxSabor2Op.setSelectedIndex(-1);
-        comboBoxFormaPizza.setSelectedIndex(-1);
-        textFieldDimArea.setText("");
-    }//GEN-LAST:event_btnFimPedidoActionPerformed
-    private boolean modoInsercaoLado = false; // false: modo de área, true: modo de lado (ou raio)
-    private void btnAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAreaActionPerformed
-        modoInsercaoLado = false; // Altera para modo de área
-        labelDimArea.setText("Área:");  // Atualiza o texto para "Área"
-        atualizarLimitesDimensao("area");
-    }//GEN-LAST:event_btnAreaActionPerformed
-
-    private void textFieldDimAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDimAreaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldDimAreaActionPerformed
-
-    private void comboBoxSabor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSabor1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxSabor1ActionPerformed
-
-    private void comboBoxFormaPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxFormaPizzaActionPerformed
-        if (modoInsercaoLado) {
-            atualizarLimitesDimensao("lado");
-        } else {
-            atualizarLimitesDimensao("area");
-        }
-    }//GEN-LAST:event_comboBoxFormaPizzaActionPerformed
-
-    private void comboBoxTelClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTelClienteActionPerformed
-        // TODO add your handling code here:
-        //popularComboClientes();
-    }//GEN-LAST:event_comboBoxTelClienteActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        // Obtém a linha selecionada na tabela
-        int selectedRow = jTable1.getSelectedRow();
-
-        // Verifica se uma linha foi selecionada
-        if (selectedRow != -1) {
-            // Confirmação de exclusão
-            int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir este cliente?",
-                    "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                // Remove o cliente da tabela
-                DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-                modelo.removeRow(selectedRow); // Remove a linha selecionada
-
-                // Se você tiver uma lista de clientes, também remova da lista
-                // Exemplo (supondo que 'clientes' seja sua lista de clientes):
-                // clientes.remove(selectedRow);
-                JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione um cliente para excluir.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        // Obtém a linha selecionada na tabela
-        int selectedRow = jTable1.getSelectedRow();
-
-        // Verifica se uma linha foi selecionada
-        if (selectedRow != -1) {
-            // Carrega os dados do cliente na linha selecionada
-            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-
-            // Preenche os campos de texto com os dados do cliente selecionado
-            jTextField1.setText(modelo.getValueAt(selectedRow, 0).toString()); // Nome
-            jTextField2.setText(modelo.getValueAt(selectedRow, 1).toString()); // Sobrenome
-            jTextField3.setText(modelo.getValueAt(selectedRow, 2).toString()); // Telefone
-
-            // Agora o botão de "Salvar" irá atualizar os dados do cliente
-            jButton1.setText("Atualizar");
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione um cliente para editar.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String searchText = jTextField4.getText().toLowerCase(); // Converte para minúsculas para facilitar a busca
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-
-        // Se o campo de pesquisa estiver vazio, exibe todos os clientes (limpa a seleção)
-        if (searchText.isEmpty()) {
-            jTable1.clearSelection(); // Limpa qualquer seleção de linhas
-            return;
-        }
-
-        // Remove a seleção de qualquer linha antes de começar a pesquisa
-        jTable1.clearSelection();
-
-        // Percorre todas as linhas da tabela e encontra as que correspondem ao texto de pesquisa
-        boolean existe = false; // Ver se existe
-        for (int i = 0; i < modelo.getRowCount(); i++) {
-            String nome = modelo.getValueAt(i, 0).toString().toLowerCase(); // Nome
-            String sobrenome = modelo.getValueAt(i, 1).toString().toLowerCase(); // Sobrenome
-            String telefone = modelo.getValueAt(i, 2).toString().toLowerCase(); // Telefone
-
-            // Verifica se algum campo contém o texto da pesquisa
-            if (nome.contains(searchText) || sobrenome.contains(searchText) || telefone.contains(searchText)) {
-                jTable1.addRowSelectionInterval(i, i); // Seleciona a linha correspondente
-                existe = true;
+        } else { // Validar pela área
+            switch (forma) {
+                case "Circulo" -> {
+                    return valor >= 300 && valor <= 2000; // Área do Círculo
+                }
+                case "Quadrado" -> {
+                    return valor >= 100 && valor <= 1600; // Área do Quadrado
+                }
+                case "Triangulo" -> {
+                    return valor >= 173 && valor <= 900; // Área do Triângulo
+                }
             }
         }
+        return false;
+    }
 
-        // Caso não tenha encontrado nenhum cliente
-        if (!existe) {
-            JOptionPane.showMessageDialog(this, "Nenhum cliente encontrado!", "Resultado da Pesquisa", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void atualizarLimitesDimensao(String modo) {
+        String forma;
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        String nome = jTextField1.getText();
-        String sobrenome = jTextField2.getText();
-        String telefone = jTextField3.getText();
-
-        if (nome.isEmpty() || sobrenome.isEmpty() || telefone.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Verifica se o telefone está no formato correto (exatamente 11 dígitos)
         try {
-            Cliente.validarTelefone(telefone); // Chama a validação diretamente na classe Cliente
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            forma = comboBoxFormaPizza.getSelectedItem().toString();
+        } catch (NullPointerException e) {
+            System.out.println("ComboBox da forma da pizza inicializou com valor nulo, por algum motivo :|");
+            System.out.println("Excecao: " + e);
             return;
         }
 
-        if (jButton1.getText().equals("Salvar")) {
-            // Cria um novo cliente e adiciona à tabela
-            Cliente novoCliente = new Cliente(nome, sobrenome, telefone);
-            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-            modelo.addRow(new Object[]{novoCliente.getNome(), novoCliente.getSobrenome(), novoCliente.getTelefone()});
-
-            // Adicionar telefone do cliente na combo box de realizar pedido
-            comboBoxTelCliente.addItem(novoCliente.getTelefone());
-
-            // Adicionar cliente no gerenciador de clientes
-            GerenciadorDeClientes.adicionarCliente(novoCliente);
-
-            JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!");
-        } else if (jButton1.getText().equals("Atualizar")) {
-            // Atualiza os dados do cliente
-            int selectedRow = jTable1.getSelectedRow();
-
-            // Atualiza os dados no gerenciador
-            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-            GerenciadorDeClientes.editarCliente(modelo.getValueAt(selectedRow, 0).toString(), nome, sobrenome, telefone);
-
-            // Atualiza os dados na tabela
-            modelo.setValueAt(nome, selectedRow, 0);  // Atualiza o nome
-            modelo.setValueAt(sobrenome, selectedRow, 1);  // Atualiza o sobrenome
-            modelo.setValueAt(telefone, selectedRow, 2);  // Atualiza o telefone
-
-            JOptionPane.showMessageDialog(this, "Cliente atualizado com sucesso!");
-
-            // Muda o botão de volta para "Salvar" para futuras inserções
-            jButton1.setText("Salvar");
-        }
-
-        // Limpa os campos após salvar ou atualizar
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-        // Obtém a linha selecionada na tabela
-        int selectedRow = jTable1.getSelectedRow();
-
-        // Verifica se uma linha foi selecionada
-        if (selectedRow != -1) {
-            // Confirmação de exclusão
-            int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir este cliente?",
-                    "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                // Remove o cliente da tabela
-                DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-                modelo.removeRow(selectedRow); // Remove a linha selecionada
-
-                // Se você tiver uma lista de clientes, também remova da lista
-                // Exemplo (supondo que 'clientes' seja sua lista de clientes):
-                // clientes.remove(selectedRow);
-                JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!");
+        if (modo.equals("lado")) { // Quando for inserção de lado (ou raio)
+            switch (forma) {
+                case "Circulo" -> {
+                    valMinDimArea.setText("10"); // Valor mínimo para o raio
+                    valMaxDimArea.setText("40"); // Valor máximo para o raio
+                }
+                case "Quadrado" -> {
+                    valMinDimArea.setText("10"); // Valor mínimo para o lado
+                    valMaxDimArea.setText("40"); // Valor máximo para o lado
+                }
+                case "Triangulo" -> {
+                    valMinDimArea.setText("20"); // Valor mínimo para o lado
+                    valMaxDimArea.setText("60"); // Valor máximo para o lado
+                }
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione um cliente para excluir.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else { // Quando for inserção de área
+            switch (forma) {
+                case "Circulo" -> {
+                    valMinDimArea.setText("300"); // Valor mínimo para a área
+                    valMaxDimArea.setText("2000"); // Valor máximo para a área
+                }
+                case "Quadrado" -> {
+                    valMinDimArea.setText("100"); // Valor mínimo para a área
+                    valMaxDimArea.setText("1600"); // Valor máximo para a área
+                }
+                case "Triangulo" -> {
+                    valMinDimArea.setText("173"); // Valor mínimo para a área
+                    valMaxDimArea.setText("900"); // Valor máximo para a área
+                }
+            }
         }
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private boolean modoInsercaoLado = false; // false: modo de área, true: modo de lado (ou raio)
 
     /**
      * @param args the command line arguments
@@ -1441,29 +1602,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddPizza;
     private javax.swing.JCheckBox btnArea;
+    private javax.swing.JButton btnAtualizarEstado;
     private javax.swing.JButton btnCalcular;
     private javax.swing.JCheckBox btnDimensoes;
+    private javax.swing.JButton btnEditarCliente;
+    private javax.swing.JButton btnExcluirCliente;
     private javax.swing.JButton btnFimPedido;
     private javax.swing.ButtonGroup btnGrupo;
+    private javax.swing.JButton btnPesquisarCliente;
     private javax.swing.JButton btnRemovePizza;
+    private javax.swing.JButton btnSalvarCliente;
     private javax.swing.JButton cadastrarSaborButton;
+    private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JComboBox<String> comboBoxFormaPizza;
     private javax.swing.JComboBox<String> comboBoxSabor1;
     private javax.swing.JComboBox<String> comboBoxSabor2Op;
     private javax.swing.JComboBox<String> comboBoxTelCliente;
+    private javax.swing.JTextArea desc;
     private javax.swing.JButton editarPrecoButton;
     private javax.swing.JButton editarSaborButton;
     private javax.swing.JButton excluirSaborButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JTextArea grr;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1478,27 +1644,33 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel labelDimArea;
     private javax.swing.JLabel labelPrecoTotal;
+    private javax.swing.JLabel lblAlterarEstado;
     private javax.swing.JLabel maxDimArea;
     private javax.swing.JLabel minDimArea;
     private javax.swing.JTextField nomeSabor;
     private javax.swing.JTextField pesquisarSabor;
     private javax.swing.JButton pesquisarSaborButton;
+    private javax.swing.JTable tabelaCadastroCliente;
     private javax.swing.JTable tabelaPizzasPedido;
     private javax.swing.JTable tabelaPrecos;
     private javax.swing.JTable tabelaSabores;
+    private javax.swing.JTable tabelaVisualizarPedido;
     private javax.swing.JTextField textFieldDimArea;
+    private javax.swing.JTextField textNomeCliente;
+    private javax.swing.JTextField textPesquisarCliente;
+    private javax.swing.JTextField textSobrenomeCliente;
+    private javax.swing.JTextField textTelefoneCliente;
     private javax.swing.JComboBox<String> tipoSabor;
+    private javax.swing.JLabel titulo;
     private javax.swing.JLabel valMaxDimArea;
     private javax.swing.JLabel valMinDimArea;
     // End of variables declaration//GEN-END:variables

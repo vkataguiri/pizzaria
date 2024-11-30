@@ -20,7 +20,7 @@ public class GerenciadorDePedidos {
     }
 
     // Método para listar todos os pedidos
-    public static List<Pedido> listarPedidos() {
+    public static ArrayList<Pedido> listarPedidos() {
         return pedidos;
     }
 
