@@ -39,7 +39,7 @@ application {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'Principal.TelaPrincipal'
+        attributes 'Main-Class': application.mainClass
     }
 }
 
