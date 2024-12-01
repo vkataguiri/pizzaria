@@ -1196,6 +1196,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         textNomeCliente.setText("");
         textSobrenomeCliente.setText("");
         textTelefoneCliente.setText("");
+
+        // Altera comboBox da tela de pedido
+        popularComboClientes();
     }//GEN-LAST:event_btnSalvarClienteActionPerformed
 
     private void textPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPesquisarClienteActionPerformed
