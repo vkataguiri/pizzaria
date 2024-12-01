@@ -36,8 +36,12 @@ public class Pedido {
         }
         this.estado = estado;
     }
-
+    public String getEstado(){
+        return this.estado;
+    }
+            
     public double calcularPrecoTotal(double preco1, double preco2) {
         return pizzas.stream().mapToDouble(p -> p.calcularPreco(preco1,preco2)).sum();
     }
+    
 }

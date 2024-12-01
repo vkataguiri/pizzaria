@@ -34,7 +34,13 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'project.Pizzaria.App'
+    mainClass = 'Principal.TelaPrincipal'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': application.mainClass
+    }
 }
 
 tasks.named('test') {
