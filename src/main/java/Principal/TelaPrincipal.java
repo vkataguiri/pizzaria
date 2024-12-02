@@ -23,20 +23,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
 
-        btnAtualizarEstado.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int linhaSelecionada = tabelaVisualizarPedido.getSelectedRow();
-                if (linhaSelecionada != -1) {
-                    String novoEstado = (String) cbEstado.getSelectedItem();
-                    Pedido pedido = GerenciadorDePedidos.listarPedidos().get(linhaSelecionada);
-                    GerenciadorDePedidos.alterarEstadoPedido(pedido.getCliente().getTelefone(), novoEstado);
-
-                    DefaultTableModel modelo = (DefaultTableModel) tabelaVisualizarPedido.getModel();
-                    modelo.setValueAt(novoEstado, linhaSelecionada, 2);
-                }
-            }
-        });
+        
 
         popularComboFormas();
         popularComboSabores();
@@ -471,6 +458,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         comboBoxFormaPizza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Circulo", "Quadrado", "Triangulo", " " }));
+        comboBoxFormaPizza.setSelectedIndex(1);
         comboBoxFormaPizza.setToolTipText("");
         comboBoxFormaPizza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1055,12 +1043,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxFormaPizzaActionPerformed
 
     private void comboBoxTelClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTelClienteActionPerformed
-        // TODO add your handling code here:
-        //popularComboClientes();
+
     }//GEN-LAST:event_comboBoxTelClienteActionPerformed
 
     private void btnExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirClienteActionPerformed
-        // TODO add your handling code here:
         // Obtém a linha selecionada na tabela
         int selectedRow = tabelaCadastroCliente.getSelectedRow();
 
@@ -1075,9 +1061,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 DefaultTableModel modelo = (DefaultTableModel) tabelaCadastroCliente.getModel();
                 modelo.removeRow(selectedRow); // Remove a linha selecionada
 
-                // Se você tiver uma lista de clientes, também remova da lista
-                // Exemplo (supondo que 'clientes' seja sua lista de clientes):
-                // clientes.remove(selectedRow);
+                // Remover cliente da lista
+                GerenciadorDeClientes.removerCliente(modelo.getValueAt(selectedRow, 2).toString());
+
                 JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!");
             }
         } else {
@@ -1086,7 +1072,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirClienteActionPerformed
 
     private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
-        // TODO add your handling code here:
         // Obtém a linha selecionada na tabela
         int selectedRow = tabelaCadastroCliente.getSelectedRow();
 
@@ -1247,7 +1232,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cbEstadoActionPerformed
 
     private void btnAtualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarEstadoActionPerformed
-        // TODO add your handling code here:
+        int linhaSelecionada = tabelaVisualizarPedido.getSelectedRow();
+        if (linhaSelecionada != -1) {
+            String novoEstado = (String) cbEstado.getSelectedItem();
+            Pedido pedido = GerenciadorDePedidos.listarPedidos().get(linhaSelecionada);
+            GerenciadorDePedidos.alterarEstadoPedido(pedido.getCliente().getTelefone(), novoEstado);
+
+            DefaultTableModel modelo = (DefaultTableModel) tabelaVisualizarPedido.getModel();
+            modelo.setValueAt(novoEstado, linhaSelecionada, 2);
+        }
     }//GEN-LAST:event_btnAtualizarEstadoActionPerformed
 
     private void editarPrecoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarPrecoButtonActionPerformed
@@ -1399,12 +1392,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             DefaultTableModel modelo = (DefaultTableModel) tabelaSabores.getModel();
             int saborSelecionado = tabelaSabores.getSelectedRow();
 
-            // Editar no combo de realizar pedido
-            comboBoxSabor1.removeItem(modelo.getValueAt(saborSelecionado, 0).toString());
-            comboBoxSabor2Op.removeItem(modelo.getValueAt(saborSelecionado, 0).toString());
-            comboBoxSabor1.addItem(nome);
-            comboBoxSabor2Op.addItem(nome);
-
             // Editar no gerenciador
             String nomeTabela = modelo.getValueAt(saborSelecionado, 0).toString();
             Sabor sabor = GerenciadorSabores.encontrarPorNome(nomeTabela);
@@ -1413,6 +1400,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             // Editar na tabela
             modelo.setValueAt(nome, saborSelecionado, 0);
             modelo.setValueAt(tipo, saborSelecionado, 1);
+
+            // Editar no combo de realizar pedido
+            popularComboSabores();
 
             // Voltar o botao para o modo de cadastro
             cadastrarSaborButton.setText("Cadastrar sabor");
@@ -1428,11 +1418,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         GerenciadorSabores.adicionarSabor(novoSabor);
 
         // Adicionar sabor no combo de sabores na tela de pedidos
-        comboBoxSabor1.addItem(novoSabor.getNome());
-        if (comboBoxSabor2Op.getItemCount() < 1) {
-            comboBoxSabor2Op.addItem(null);
-        }
-        comboBoxSabor2Op.addItem(novoSabor.getNome());
+        popularComboSabores();
 
         // Mostrar mensagem de cliente cadastrado com sucesso
         JOptionPane.showMessageDialog(this, "Sabor cadastrado com sucesso.", "Sucesso", 1);
@@ -1464,7 +1450,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         comboBoxTelCliente.removeAllItems();  // Limpa os itens antigos
         List<Cliente> clientes = GerenciadorDeClientes.getClientes(); // Obtém a lista de clientes
         // Verifica se a lista de clientes não é null e tem elementos
-        if (clientes != null && clientes.size() > 0) {
+        if (clientes != null && !clientes.isEmpty()) {
             for (Cliente cliente : clientes) {
                 comboBoxTelCliente.addItem(cliente.getTelefone());  // Adiciona o telefone ao combobox
             }
